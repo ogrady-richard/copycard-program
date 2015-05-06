@@ -2,15 +2,21 @@
 
 All the essential files for the ZhongNet Small Business Copy Card Program.
 
-| File                | Description                                 |
-| ------------------- | ------------------------------------------- |
-| * README.md         | You are here.                               |
-|  _./vendors/_       |                                             |
-| jquery-ui-1.11.4/   | [JQueryUI](https://jqueryui.com/) Resources |
-| _./resources/_      |                                             |
-| index.html          | Index Page                                  |
-| favicon.ico         | Webpage Favcion                             |
-| _css/_              |                                             |
-| _data/_             |                                             |
-| _images/_           |                                             |
-| _js/_               |                                             |
+| File                      | Description                                    |
+| ------------------------- | ---------------------------------------------- |
+| * README.md               | You are here.                                  |
+|  _./vendors/_             | ##                                              |
+| jquery-ui-1.11.4/         | [JQueryUI](https://jqueryui.com/) Resources    |
+| jquery.dataTables.min.js  | [DataTables](http://datatables.net/) Resources |
+| jquery.dataTables.min.css | [DataTables](http://datatables.net/) Resources |
+| _./resources/_            | ##                                              |
+| index.html                | Index Page                                     |
+| cc.html                   | Copycard Interface Page                        |
+| favicon.ico               | Webpage Favcion                                |
+| _css/_                    | #                                              |
+| _default-theme_           | #                                              |
+| style.css                 | Default Webpage Theme Stylesheet               |
+| _data/_                   | #                                              |
+| _images/_                 | #                                              |
+| sort_*.png                | DataTables Sort Priority Icons                 |
+| _js/_                     | #                                              |
