@@ -1,0 +1,53 @@
+html {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    width: 80%;
+    border: 0px;
+    background: linear-gradient(#1e130c,#9a8478);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#tableContainer {
+    background-color: #ffffff;
+    opacity: 0.6;
+    padding: 8px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 1200px;
+    height: 500px;
+}
+
+#header {
+    position: relative;
+    width: 900px;
+    height: 80px;
+    margin: auto;
+    padding: 10px;
+    border: 5px solid black;
+    border-radius: 5px;
+    background-color: #ffffff;
+    opacity: 0.5;
+}
+
+#leftSeperator {
+    left: 50px;
+    position: absolute;
+    height: 75px;
+}
+
+#middleSeperator {
+    left: 350px;
+    position: absolute;
+    height: 75px;
+}
+
+#rightSeperator {
+    left: 650px;
+    position: absolute;
+    height: 75px;
+}

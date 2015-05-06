@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="us">
+<head>
+    <title>ZNet - Copycard Program</title>
+    <meta charset="utf-8">
+    <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="../vendors/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="css/default-theme/style.css">
+    <script>$(document).ready(function(){
+    myTable = $('#hi').DataTable();
+    });</script>
+    
+</head>
+<body>
+    <div id="header">
+        <div id="leftSeperator">
+            <span id="user"><h4>Logged in as x</h4></span>
+            <span id="userControl"><a href="../resources/">Log out</a></span>
+        </div>
+        <div id="middleSeperator">
+            <span id="new user"><button>hi</button></span>
+        </div>
+        <div id="rightSeperator">
+            <span id="new user"><button>bye</button></span>
+        </div>
+    </div>
+    <div id="tableContainer">
+        <table id="hi"><thead><th>Hi</th><th>Bye</th></thead><tbody><tr><td>What</td><td>Why</td></tr></tbody></table>
+    </div>
+</body>
+</html>

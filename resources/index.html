@@ -1,8 +1,63 @@
-<html>
-    <head>
-        <title>ZNet - Copycard Program</title>
-    </head>
-    <body>
+<!doctype html>
+<html lang="us">
+<head>
+    <title>ZNet - Copycard Program</title>
+    <meta charset="utf-8">
+    <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="css/default-theme/style.css">
+</head>
+<body>
+    <div id="container">
+    <h1 id="auth" style="padding-top: .5em; font-size: 4em; text-align: center; color:white;text-shadow:3px 3px black;">Waiting for Authentication...</h1>
+    </div>
+    <div id="dialog" title="You need to login">
+    <p id="validateTips" style="font-size: 0.8em; padding: 5px;">Please enter your ZhongNet Login Credentials</p>
+	<form id="login-form">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username"></input><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password"></input>
+    </form>
+    </div>
+    <script> 
+    $( "#dialog" ).dialog({
+    dialogClass: "no-close",
+    modal: true,
+    closeOnEscape: false,
+    autoOpen: false,
+    width: 400,
+    draggable: false,
+    buttons: [
+        {
+            text: "Login to ZN",
+            click: function() {
+        $.ajax({
+            url: 'login.php',
+            type: 'POST', // GET or POST
+            data: $("#login").serialize(), // will be in $_POST on PHP side
+			success: function(output) {
+			$( "#dialog" ).dialog( "close" );
+			},
+			error: function() {
+                if( $("#username").val() == "snake") {
+                $( "#dialog" ).dialog( "close" );
+                $( "#auth" ).html( "Authentication successful.<br>You are being redirected." ); 
+                setTimeout(function(){window.location="cc.html";},500);
+                }
+                else {
+			    $("#validateTips").html('<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>Error. Please try again.').addClass("ui-state-error ui-corner-all");
+                setTimeout(function() { $("#validateTips").removeClass( "ui-state-error", 1500 ); }, 500 );
+                }
+            }
+        });
+            }
+        }
+    ]
+    });
     
-    </body>
+    $( "#dialog" ).dialog( "open" );
+    </script>
+</body>
 </html>
