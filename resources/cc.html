@@ -9,8 +9,26 @@
     <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="css/default-theme/style.css">
-    <script>$(document).ready(function(){
+    <script>
+    $(document).ready(function(){
     myTable = $('#hi').DataTable();
+    
+        $( "#dialog" ).dialog({
+        autoOpen: false,
+        buttons: [
+            {
+                text: "Ok",
+                click: function() {
+                    $( "#dialog" ).dialog( "close" );
+                }
+            }]
+        }
+    );
+    
+    $('#hi tbody').on('dblclick', 'tr', function () {
+        $( "foo" ).html("Bar");
+        $( "#dialog" ).dialog( "open" );
+    } );
     });</script>
     
 </head>
@@ -21,14 +39,17 @@
             <span id="userControl"><a href="../resources/">Log out</a></span>
         </div>
         <div id="middleSeperator">
-            <span id="new user"><button>hi</button></span>
+            <span id="new user"><button>Add new Customer</button></span>
         </div>
         <div id="rightSeperator">
-            <span id="new user"><button>bye</button></span>
+            <span id="new user"><button>Modify selected Customer </button></span>
         </div>
     </div>
     <div id="tableContainer">
-        <table id="hi"><thead><th>Hi</th><th>Bye</th></thead><tbody><tr><td>What</td><td>Why</td></tr></tbody></table>
+        <table id="hi" class="display noselect"><thead><th>Hi</th><th>Bye</th></thead><tbody><tr><td>What</td><td>Why</td></tr><tr><td>What</td><td>Why</td></tr><tr><td>What</td><td>Why</td></tr><tr><td>What</td><td>Why</td></tr></tbody></table>
+    </div>
+    <div id="dialog" title="Foo">
+        <p id="foo"></p>
     </div>
 </body>
 </html>
