@@ -1,44 +1,3 @@
-   $( function(){
-   $( "#dialog" ).dialog({
-    dialogClass: "no-close",
-    modal: true,
-    closeOnEscape: false,
-    autoOpen: false,
-    width: 400,
-    draggable: false,
-    buttons: [
-        {
-            text: "Login to ZN",
-            click: function() {
-        $.ajax({
-            url: 'login.php',
-            type: 'POST', // GET or POST
-            data: $("#login").serialize(), // will be in $_POST on PHP side
-			success: function(output) {
-			$( "#dialog" ).dialog( "close" );
-			},
-			error: function() {
-                if( $("#username").val() == "snake") {
-                $( "#dialog" ).dialog( "close" );
-                $( "#auth" ).html( "Authentication successful.<br>You are being redirected." ); 
-                setTimeout(function(){window.location="cc.html";},500);
-                }
-                else {
-			    $("#validateTips").html('<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>Error. Please try again.').addClass("ui-state-error ui-corner-all");
-                setTimeout(function() { $("#validateTips").removeClass( "ui-state-error", 1500 ); }, 500 );
-                }
-            }
-        });
-            }
-        }
-    ]
-    });
- 
-    $( "#dialog" ).dialog( "open" );
-    });
-    
-    //Rewrite ----------------------
-    
 $( function() {
     $( '#dialog' ).dialog( {
         dialogClass: 'no-close',
@@ -58,8 +17,8 @@ $( function() {
                         url: './data/login.php',
                         type: 'POST',
                         data: $( '#login-form' ).serialize(),
-                        success: function( logStatus ) {
-                            if( logStatus == 'invalid') {
+                        success: function( ajaxReturn ) {
+                            if( ajaxReturn == 'invalid') {
                                 submitError( 'Authentication error. Please check your username and password and try again. If this issue persists, please contact the administrator.<p style="text-align: right; width:500;"><i>(ERR300)</i></p>');
                             }
                             else {
@@ -87,7 +46,9 @@ $( function() {
     Paramaters:
         text - A string with optional HTML tags.
     Usage:
-        This function is used to tell the user there was an error processing their AJAX request while logging in. The error message can be customized to inform the user where the error occured.
+        This function is used to tell the user there was an error processing
+        their AJAX request while logging in. The error message can be
+        customized to inform the user where the error occurred.
 */
 function submitError( text ) {
     $("#validateTips").html('<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>'+text)
@@ -95,6 +56,15 @@ function submitError( text ) {
     setTimeout(function() { $("#validateTips").removeClass( "ui-state-error", 1500 ); }, 500 );
 };
 
+/*
+    Function
+    Name:
+        isEmpty
+    Paramaters:
+        inputElement - A string
+    Usage:
+        Check if the given string is empty.
+*/
 function isEmpty( inputElement ) {
-    return ( $( inputElement ).val() == '' );
+    return ( $( inputElement ).val() == '' || $( inputElement ).val() == undefined );
 }

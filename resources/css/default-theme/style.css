@@ -18,13 +18,13 @@ body {
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 1200px;
+    width: 90%;
     height: 500px;
 }
 
 #header {
     position: relative;
-    width: 900px;
+    width: 80%;
     height: 80px;
     margin: auto;
     padding: 10px;
@@ -41,13 +41,13 @@ body {
 }
 
 #middleSeperator {
-    left: 350px;
+    left: 250px;
     position: absolute;
     height: 75px;
 }
 
 #rightSeperator {
-    left: 650px;
+    left: 450px;
     position: absolute;
     height: 75px;
 }
