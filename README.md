@@ -11,7 +11,7 @@ All the essential files for the ZhongNet Small Business Copy Card Program.
 | jquery.dataTables.min.css | [DataTables](http://datatables.net/) Resources |
 | _./resources/_            | ##                                              |
 | index.html                | Index Page                                     |
-| cc.html                   | Copycard Interface Page                        |
+| cc.php                    | Copycard Interface Page                        |
 | favicon.ico               | Webpage Favcion                                |
 | _css/_                    | #                                              |
 | _default-theme_           | #                                              |

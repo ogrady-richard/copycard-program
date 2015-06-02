@@ -10,7 +10,7 @@ $pass = $_POST['password'];
 // Check to see if our user variables are set appropriately
 if( isset($user) && isset($pass) ) {
         // Prepare our database query
-        $dbconn = $dbase->prepare('SELECT Hash FROM Employees WHERE Username=:username LIMIT 1;');
+        $dbconn = $dbase->prepare('SELECT * FROM Employees WHERE Username=:username LIMIT 1;');
 
         // Bind our username parameter to the query and execute it
         $dbconn->bindParam(':username', $user);
@@ -21,6 +21,8 @@ if( isset($user) && isset($pass) ) {
         
         if (password_verify( $pass, $result['Hash'] )) {
             // Issue a session token to this user. 
+            $_SESSION['NAME'] = $result['Name'];
+            $_SESSION['STYLE'] = $result['DefaultStyle'];
         }
         else {
             echo 'invalid';
