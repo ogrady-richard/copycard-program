@@ -16,7 +16,7 @@
 - Added very basic user style implementation using the default style and a new red theme. And a bird theme.
 - Enter will now work for login form submissions.
 
-To-do:
+## To-do:
 - Change the customer table id. I don't know how that slipped by.
 - Create a logout page.
  - Logout page should tell user their session has been terminated, and they are logged out.
