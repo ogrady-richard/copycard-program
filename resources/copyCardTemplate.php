@@ -9,7 +9,7 @@
     <script src="js/copyCard.js"></script>
     <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="css/<?php echo $_SESSION['STYLE']; ?>/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.php">
     <script>
     $(document).ready(function(){
     customerTable = $('#customer-table').DataTable({"columnDefs":[{"targets":[0,5,6],"visible":false,"searchable":false}]});
@@ -33,7 +33,7 @@
     
     $('#customer-table tbody').on('mouseenter', 'tr', function () {
         if( customerTable.row( this ).data() != undefined ) {
-            $('#display').html( '<h3 style="color:white">Black and White Copies Remaining: '+customerTable.row( this ).data()[5]+'</h3>' );
+            $('#display').html( '<h3>Black and White Copies Remaining: '+customerTable.row( this ).data()[5]+'</h3>' );
         }
     } );
     
@@ -52,7 +52,7 @@
     </div>
     <div id="tableContainer">
         <table id="customer-table" class="display noselect"><thead><th>ID</th><th>Customer</th><th>Phone</th><th>Email</th><th>Business</th><th>Black and White Copies</th><th>Color Copies</th></thead><tbody></tbody></table>
-        <div id='display'></div>
+        <div id='display'><h3>Black and White Copies Remaining: -- </h3></div>
     </div>
     <div id="dialog" title="Foo">
         <p id="foo"></p>
@@ -62,21 +62,22 @@
 	<form id="customer-information-form" method="POST"> <!-- Method is not important at the moment -->
     <label for="cust-id">Customer ID</label><br>
     <input type="number" name="cust-id" id="cust-id"></input><br>
-    <label for="cust-name">Customer Name</label><br>
-    <input type="text" name="cust-name" id="cust-name"></input><br>
+    <label for="cust-f-name">Customer First Name</label><br>
+    <input type="text" name="cust-f-name" id="cust-f-name"></input><br>
+    <label for="cust-l-name">Customer Last Name</label><br>
+    <input type="text" name="cust-l-name" id="cust-l-name"></input><br>    
     <label for="cust-ph">Customer Phone Number</label><br>
-    <input type="text" name="cust-ph" id="cust-ph"></input><br>
+    <input type="tel" name="cust-ph" id="cust-ph"></input><br>
     <label for="cust-email">Customer Email</label><br>
-    <input type="text" name="cust-email" id="cust-email"></input><br>
+    <input type="email" name="cust-email" id="cust-email"></input><br>
     <label for="cust-business">Customer Business</label><br>
     <input type="text" name="cust-business" id="cust-business"></input><br>
     <label for="cust-bw">Customer Black and White Copies</label><br>
-    <input type="text" name="cust-bw" id="cust-bw"></input><br>
+    <input type="number" name="cust-bw" id="cust-bw"></input><br>
     <label for="cust-color">Customer Color Copies</label><br>
-    <input type="text" name="cust-color" id="cust-color"></input><br>
+    <input type="number" name="cust-color" id="cust-color"></input><br>
     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </form>
     </div>
-    <div id='display'></div>
 </body>
 </html>

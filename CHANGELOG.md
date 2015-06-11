@@ -25,17 +25,25 @@
 ### BUG FIXES
 - Hovering over the customer table with no data no longer sends an error to the console.
 
+## June 10th, 2015
+- Stylesheet is now dynamically generated, requiring a single style.php file instead of many themed style.css documents.
+- Altered the default style and bird style.
+- Customer table is now partially generated with data from the CopyCardProgram database.
+- New file getCustomers.php, which handles AJAX calls to the database to get customer information.
+- Placeholder for remaining black/white copies implemented, and font color changed for debugging purposes.
+
 ## To-do:
+- More styles. Top priority.
+- Clean up the code, for goodness sake.
 - Have new customer dialog close upon successful customer addition.
 - Standardize the stylesheets, so a change in one reflects a change in all.
 - Verify data before adding it to the table.
-- Clean up the code, for goodness sake.
 - Logout page should tell user their session has been terminated, and they are logged out.
 - Implement permissions (add employees)
 - Allow employees to change their password.
 - Allow employees to change their style.
-- Read customer information from the database
 - Alert user about successful logout, and check to make sure there is no unsaved data.
 - Implement session timeout.
 - Folder and file organization.
+- Write customer information to the database.
 - ... And so much more!
