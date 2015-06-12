@@ -23,6 +23,7 @@ if( isset($user) && isset($pass) ) {
             // Issue a session token to this user. 
             $_SESSION['NAME'] = $result['Name'];
             $_SESSION['STYLE'] = $result['DefaultStyle'];
+            $_SESSION['EMPLOYEE_ID'] = $result['EmployeeID'];
         }
         else {
             echo 'invalid';

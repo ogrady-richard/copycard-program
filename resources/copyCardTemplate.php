@@ -1,73 +1,51 @@
-<!doctype html>
-<html lang="us">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <title>ZNet - Copycard Program</title>
     <meta charset="utf-8">
+    
+    <link rel="stylesheet" type="text/css" href="css/style.php">
+    <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
+
     <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
     <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="../vendors/jquery.dataTables.min.js"></script>
     <script src="js/copyCard.js"></script>
-    <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.php">
-    <script>
-    $(document).ready(function(){
-    customerTable = $('#customer-table').DataTable({"columnDefs":[{"targets":[0,5,6],"visible":false,"searchable":false}]});
-    
-        $( "#dialog" ).dialog({
-        autoOpen: false,
-        buttons: [
-            {
-                text: "Ok",
-                click: function() {
-                    $( "#dialog" ).dialog( "close" );
-                }
-            }]
-        }
-    );
-    
-    $('#customer-table tbody').on('dblclick', 'tr', function () {
-        $( "#dialog" ).dialog( "open" );
-        $( "#foo").html( customerTable.row( this ).data() + "  " + "<?php echo $_SESSION['NAME']; ?>" );
-    } );
-    
-    $('#customer-table tbody').on('mouseenter', 'tr', function () {
-        if( customerTable.row( this ).data() != undefined ) {
-            $('#display').html( '<h3>Black and White Copies Remaining: '+customerTable.row( this ).data()[5]+'</h3>' );
-        }
-    } );
-    
-    });</script>
-    
 </head>
 <body>
     <div id="header">
         <div id="leftSeperator">
-            <span id="user"><h4>Logged in as <?php echo $_SESSION['NAME']; ?></h4></span>
-            <span id="userControl"><a href="logout.php">Log out</a></span>
+            <span id="user"><h4>Logged in as <?php echo $_SESSION['NAME']; ?></h4></span> &squf;
+            <?php
+                if($_SESSION['NAME'] == "Richard O'Grady") echo "<span class=\"userControl\"><a href=\"adminControls.php\">Administrator</a></span> &squf;";
+            ?>
+            <span class="userControl"><a href="#">Change Theme</a></span> &squf;
+            <span class="userControl"><a href="#">Change Password</a></span> &squf;
+            <span class="userControl"><a href="logout.php">Log out</a></span> &squf;
         </div>
         <div id="middleSeperator">
-            <span id="new-customer"><button id="add-new-customer">Add new Customer</button></span><br>
+            <button id="add-new-customer">Add new Customer</button>
         </div>
     </div>
     <div id="tableContainer">
         <table id="customer-table" class="display noselect"><thead><th>ID</th><th>Customer</th><th>Phone</th><th>Email</th><th>Business</th><th>Black and White Copies</th><th>Color Copies</th></thead><tbody></tbody></table>
-        <div id='display'><h3>Black and White Copies Remaining: -- </h3></div>
+        <div id='display-BW'><h3>B/W</h3>---</div>
+        <div id='display-color'><h3>Color</h3>---</div>
     </div>
     <div id="dialog" title="Foo">
         <p id="foo"></p>
     </div>
     
     <div id="add-modal" title="Add a New Customer">
+    <p> Please fill out the customer information below.</p>
 	<form id="customer-information-form" method="POST"> <!-- Method is not important at the moment -->
-    <label for="cust-id">Customer ID</label><br>
-    <input type="number" name="cust-id" id="cust-id"></input><br>
     <label for="cust-f-name">Customer First Name</label><br>
     <input type="text" name="cust-f-name" id="cust-f-name"></input><br>
     <label for="cust-l-name">Customer Last Name</label><br>
     <input type="text" name="cust-l-name" id="cust-l-name"></input><br>    
-    <label for="cust-ph">Customer Phone Number</label><br>
-    <input type="tel" name="cust-ph" id="cust-ph"></input><br>
+    <label for="cust-phone">Customer Phone Number</label><br>
+    <input type="tel" name="cust-phone" id="cust-phone"></input><br>
     <label for="cust-email">Customer Email</label><br>
     <input type="email" name="cust-email" id="cust-email"></input><br>
     <label for="cust-business">Customer Business</label><br>

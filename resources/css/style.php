@@ -3,7 +3,8 @@ session_start();
 header("Content-type: text/css; charset: UTF-8");
 $userStyle = $_SESSION['STYLE'];
 $bodyColor = array( 'default-theme' => '-color: #C63D0F;', 'bird-theme' => ': linear-gradient(#1e130c,#9a8478);' );
-$bgImage = array( 'default-theme' => '', 'bird-theme' => 'https://cdn0.iconfinder.com/data/icons/black-icon-social-media/128/099374-twitter-bird3.png');
+$bgImage = array( 'default-theme' => 'https://wiki.documentfoundation.org/images/thumb/8/88/LibreOffice_MotifScatter_RGB.png/300px-LibreOffice_MotifScatter_RGB.png',
+                  'bird-theme' => 'https://cdn0.iconfinder.com/data/icons/black-icon-social-media/128/099374-twitter-bird3.png');
 $bgColor = array( 'default-theme' => '#FDF3E7', 'bird-theme' => '#87CEEB' );
 $textColor = array( 'default-theme' => '#3B3738', 'bird-theme' => '#000000' );
 ?>
@@ -36,11 +37,27 @@ body {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 90%;
-    height: 500px;
+    height: 550px;
 }
 
 tr {
     color: #000000;
+}
+
+#display-BW {
+    width: 60px;
+    float: left;
+    border: 1px solid black;
+    text-align:center;
+    background-color:#ffffff;
+}
+
+#display-color {
+    width: 60px;
+    margin-left: 90px;
+    border: 1px solid black;
+    text-align:center;
+    background-color:#ffffff;
 }
 
 #tableContainer:hover {

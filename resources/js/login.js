@@ -16,8 +16,6 @@ $( function() {
 
 });
 
-
-
 /*
     Function
     Name:

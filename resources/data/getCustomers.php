@@ -15,6 +15,8 @@ $result = $dbconn->fetchAll(PDO::FETCH_NUM);
 
 $result = json_encode($result);
 
+$dbase = null;
+
 echo $result;
 
 

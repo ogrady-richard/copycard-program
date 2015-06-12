@@ -21,8 +21,6 @@
 - Logout page implemented.
 - Attempting to view access-restricted pages will result in an error.
 - Add New Customer button implemented (JS Only - no DB Support yet)
-
-### BUG FIXES
 - Hovering over the customer table with no data no longer sends an error to the console.
 
 ## June 10th, 2015
@@ -32,18 +30,35 @@
 - New file getCustomers.php, which handles AJAX calls to the database to get customer information.
 - Placeholder for remaining black/white copies implemented, and font color changed for debugging purposes.
 
+## June 11th, 2015
+- Added a placeholder PHP file placeholder.php, to stand in for admin pages not yet developed.
+- Beautified the following files, because it was just getting chaotic:
+ - 401.php, addEmployee.php, copyCardTemplate.php, copyCard.js, login.js
+- Implemented "Black and White" and "Color" copy fields for customers on mouseover.
+- Changed 404.php to 401.php, like it should have already been.
+- New file addCustomer.php, which successfully adds customers to the database.
+- New customer dialog will now close no matter how data is submitted (Enter key vs. button.)
+- Adding a customer will now create an entry in the history database table.
+- Links (inoperable currently) to alter style, change password, and access the admin menu now on the working page.
+- Changed mySQLCommands to use Employee ID's in history, instead of names, for easier foreign key linking.
+
 ## To-do:
 - More styles. Top priority.
-- Clean up the code, for goodness sake.
-- Have new customer dialog close upon successful customer addition.
-- Standardize the stylesheets, so a change in one reflects a change in all.
 - Verify data before adding it to the table.
 - Logout page should tell user their session has been terminated, and they are logged out.
-- Implement permissions (add employees)
+- Implement permissions to access restricted pages.
+ - Also start on those restricted pages (reset passwords, add employees, etc.)
 - Allow employees to change their password.
 - Allow employees to change their style.
 - Alert user about successful logout, and check to make sure there is no unsaved data.
 - Implement session timeout.
 - Folder and file organization.
-- Write customer information to the database.
+- Add Daily Manifest with transaction history for the copy card. 
+- Add permissions to open session information.
+- Check for open database connections and close them when finished.
+- More exception handling - things can break with no feedback, and I need to know where and why.
+- Database shenanigans.
+- Start work on the README.md - it's still a mess.
+- Show customer information modal when their row is selected.
+- Clean up some confusing variable names.
 - ... And so much more!
