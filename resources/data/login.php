@@ -16,7 +16,7 @@ if( isset($user) && isset($pass) ) {
         $dbconn->bindParam(':username', $user);
         $dbconn->execute();
 
-        // TEST Display results
+        // Get the results into a dictionary for easier reading
         $result = $dbconn->fetch(PDO::FETCH_ASSOC);
         
         if (password_verify( $pass, $result['Hash'] )) {
@@ -24,6 +24,16 @@ if( isset($user) && isset($pass) ) {
             $_SESSION['NAME'] = $result['Name'];
             $_SESSION['STYLE'] = $result['DefaultStyle'];
             $_SESSION['EMPLOYEE_ID'] = $result['EmployeeID'];
+            
+            $dbconn = $dbase->prepare('SELECT PermissionID FROM EmployeePermissions WHERE EmployeeID=:eid LIMIT 1;');
+            
+            $dbconn->bindParam(':eid', $_SESSION['EMPLOYEE_ID']);
+            $dbconn->execute();
+            
+            $result = $dbconn->fetch(PDO::FETCH_ASSOC);
+            
+            $_SESSION['PERMISSION_LEVEL'] = $result['PermissionID'];
+            
         }
         else {
             echo 'invalid';

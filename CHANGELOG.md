@@ -42,23 +42,44 @@
 - Links (inoperable currently) to alter style, change password, and access the admin menu now on the working page.
 - Changed mySQLCommands to use Employee ID's in history, instead of names, for easier foreign key linking.
 
+June 16th, 2015 (History Update)
+- Implemented a history log, which can be accessed with admin level accounts.
+ - Uses data/getHistory driver and history-transaction page to display history.
+- Permissions implemented but not optimized. Many pages will now refuse access without valid login.
+- mySQLCommands file will now build a stand-in admin account for immediate use.
+- Cell borders around tables to improve readability.
+- (Not in Git) Added a helpdesk (Thanks, [osTicket](http://osticket.com/)!).
+- Data is now verified when a user tries to add a new customer.
+- CHANGELOG.md now has snapshot update information (wow!)
+
 ## To-do:
 - More styles. Top priority.
-- Verify data before adding it to the table.
+- Add a link to the helpdesk.
+- Make dates more intuitive  for searching in history DataTable
+- Option to destroy temporary admin account in Admin menu.
+- Option to add a new employee from the Admin menu.
+- Stop using IDs for styles, start implementing classes instead.
+- Replace permission integers with human-readable equivalents.
+- Implement helpdesk support - allow users to open tickets.
 - Logout page should tell user their session has been terminated, and they are logged out.
-- Implement permissions to access restricted pages.
- - Also start on those restricted pages (reset passwords, add employees, etc.)
+ - Also check to make sure there is no unsaved data.
 - Allow employees to change their password.
 - Allow employees to change their style.
-- Alert user about successful logout, and check to make sure there is no unsaved data.
-- Implement session timeout.
+- More informative error codes. Most are very generic.
+- File-by-file spot checking. Syntax and formatting is all over the place. Try for consistency.
+- More professional look.
+- Administrator info page for at-a-glance statistics (number of users, weekly transactions, so on.)
+- Implement custom session timeout.
 - Folder and file organization.
-- Add Daily Manifest with transaction history for the copy card. 
-- Add permissions to open session information.
+- Add Daily Manifest with transaction history for the copy card.
 - Check for open database connections and close them when finished.
 - More exception handling - things can break with no feedback, and I need to know where and why.
-- Database shenanigans.
 - Start work on the README.md - it's still a mess.
-- Show customer information modal when their row is selected.
-- Clean up some confusing variable names.
+- Clean up confusing variable names. 
+- Generate a printable date-range manifest with specific transaction information (user, date, quantity, etc.)
+- Start crossing things off the changelog as they are completed.
+- Implement a functions driver to simplify messy spots in code.
+ - Permission checking especially. isAdmin() versus isset() and permission checks.
+- Customer Page for copy card requests and customer account information.
+- Printable backup copy cards.
 - ... And so much more!

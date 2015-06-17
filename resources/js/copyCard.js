@@ -14,30 +14,25 @@ function refreshCustomerTable() {
 }
 
 function addCustomer() {
-    sanitize = function(input) {
-		var output = input.replace(/<script[^>]*?>.*?<\/script>/gi, '').
-					 replace(/<[\/\!]*?[^<>]*?>/gi, '').
-					 replace(/<style[^>]*?>.*?<\/style>/gi, '').
-					 replace(/<![\s\S]*?--[ \t\n\r]*>/gi, '');
-	    return output;
-	};
-    
         $.ajax({
-        url: './data/addCustomer.php',
-        type: 'POST',
-        data: $('#customer-information-form').serialize(),
-        success: function( ajaxReturn ) {
-            refreshCustomerTable();
-        },
-        error: function() {
-            alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
-            console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
-        }
+            url: './data/addCustomer.php',
+            type: 'POST',
+            data: $('#customer-information-form').serialize(),
+            success: function( ajaxReturn ) {
+                refreshCustomerTable();
+                if( ajaxReturn == 'invalid' ) {
+                    alert('There was a problem adding the user to the database. Please consult the administrator.');
+                    console.log('User not added successfully.');
+                }
+            },
+            error: function() {
+                alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
+                console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
+            }
         });
-    
-    $('#add-modal').dialog( 'close' );
-    
+
     refreshCustomerTable();
+    $('#add-modal').dialog( 'close' );
 }
 
 function resetForm( resetForm ) {

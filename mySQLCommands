@@ -1,0 +1,27 @@
+/*Database Hard Reset Code*/
+DROP DATABASE IF EXISTS CopyCardProgram; # Drop the existing Database
+
+CREATE DATABASE CopyCardProgram; # Create t he new Database
+USE CopyCardProgram; # Link into the Database
+
+CREATE TABLE Customers ( CustomerID int PRIMARY KEY AUTO_INCREMENT, FirstName char(35), LastName char(35), Business char(70), Phone char(10), Email char(255), BlackWhiteCopies int, ColorCopies int); # Customer Table - see README.md
+
+CREATE TABLE AuthorizedUsers ( CustomerID int NOT NULL, FirstName char(35), LastName char(35), Phone char(10), FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ); # Authorized Users Table - see README.md
+
+CREATE TABLE Employees ( EmployeeID int PRIMARY KEY AUTO_INCREMENT, Name char(60), Username char(35), Hash binary(60), DefaultStyle char(25) ); # Employees Table - see README.md
+INSERT INTO Employees( EmployeeID, Name, Username, Hash, DefaultStyle ) VALUES ( -1, 'Administrator', 'admin', '$2y$10$61YNLNtAaRnRDcI16bpcV.X/0/CDQAuhlEbVBmrB/Gtfy77hOp.VK', 'default-theme' ); # Default password 'admin'
+
+CREATE TABLE History ( TransactionID int PRIMARY KEY AUTO_INCREMENT, CustomerID int NOT NULL, EmployeeID int NOT NULL, ts timestamp, Action char(255), FOREIGN KEY (CustomerID) REFERENCES Customers( CustomerID ), FOREIGN KEY (EmployeeID) REFERENCES Employees( EmployeeID ) ); # History Table - see README.md
+
+CREATE TABLE Permissions ( PermissionID int PRIMARY KEY AUTO_INCREMENT, Description char(35) ); # Employee Permissions Table - see README.md
+INSERT INTO Permissions( PermissionID, Description ) VALUES ( 1, 'Administrator' ); # Setup user permissions
+INSERT INTO Permissions( PermissionID, Description ) VALUES ( 2, 'Manager' );
+INSERT INTO Permissions( PermissionID, Description ) VALUES ( 3, 'Associate' );
+INSERT INTO Permissions( PermissionID, Description ) VALUES ( 4, 'Customer' );
+
+CREATE TABLE EmployeePermissions ( EmployeeID int NOT NULL, PermissionID int NOT NULL, FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID), FOREIGN KEY (PermissionID) REFERENCES Permissions(PermissionID) );
+INSERT INTO EmployeePermissions( EmployeeID, PermissionID ) VALUES ( -1, 1 ); # Give temp user administrator rights
+
+CREATE TABLE Sessions ( SessionID char(64), SessionPermissions int NOT NULL, FOREIGN KEY (SessionPermissions) REFERENCES EmployeePermissions(PermissionID));
+
+# INSERT INTO Customers (FirstName, LastName, Business, Phone, Email, ColorCopies, BlackWhiteCopies) VALUES ( 'John', 'Baldwin', 'Rink Ink Inc.', '7752232345', 'jbaldwin@rinkink.net', 50, 75); # Test Value. Do not use.
