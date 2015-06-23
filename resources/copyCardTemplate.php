@@ -24,7 +24,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
     <script src="js/copyCard.js"></script>
 </head>
 <body>
-    <div id="header">
+    <div id="header" class="content">
         <div id="leftSeperator">
             <span id="user"><h4>Logged in as <?php echo $_SESSION['NAME']; ?></h4></span> &squf;
             <?php
@@ -32,13 +32,14 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
             ?>
             <span class="userControl"><a href="#">Change Theme</a></span> &squf;
             <span class="userControl"><a href="#">Change Password</a></span> &squf;
-            <span class="userControl"><a href="logout.php">Log out</a></span> &squf;
+            <span class="userControl"><a href="logout.php">Log out</a></span> <br>&squf;
+            <span class="userControl">Need assistance? Visit the <a href="http://45.55.248.93/osTicket/osTicket-1.8/">Helpdesk</a>.</span> &squf;
         </div>
-        <div id="middleSeperator">
-            <button id="add-new-customer">Add new Customer</button>
+        <div id="rightSeperator">
+            <button id="add-new-customer" class="user-btn">Add new Customer</button>
         </div>
     </div>
-    <div id="tableContainer">
+    <div id="tableContainer" class="content">
         <table id="customer-table" class="display noselect cell-border"><thead><th>ID</th><th>Customer</th><th>Phone</th><th>Email</th><th>Business</th><th>Black and White Copies</th><th>Color Copies</th></thead><tbody></tbody></table>
         <div id='display-BW'><h3>B/W</h3>---</div>
         <div id='display-color'><h3>Color</h3>---</div>
@@ -51,15 +52,15 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
     <p> Please fill out the customer information below.</p>
 	<form id="customer-information-form" method="POST">
     <label for="cust-f-name">Customer First Name</label><br>
-    <input type="text" name="cust-f-name" id="cust-f-name" required></input><br>
+    <input type="text" name="cust-f-name" id="cust-f-name" maxlength=35 placeholder="Required" required></input><br>
     <label for="cust-l-name">Customer Last Name</label><br>
-    <input type="text" name="cust-l-name" id="cust-l-name" required></input><br>    
+    <input type="text" name="cust-l-name" id="cust-l-name" maxlength=35 placeholder="Required" required></input><br>    
     <label for="cust-phone">Customer Phone Number</label><br>
-    <input type="tel" name="cust-phone" id="cust-phone"></input><br>
+    <input type="tel" name="cust-phone" id="cust-phone" maxlength=10></input><br>
     <label for="cust-email">Customer Email</label><br>
     <input type="email" name="cust-email" id="cust-email"></input><br>
     <label for="cust-business">Customer Business</label><br>
-    <input type="text" name="cust-business" id="cust-business"></input><br>
+    <input type="text" name="cust-business" id="cust-business" maxlength=70></input><br>
     <label for="cust-bw">Customer Black and White Copies</label><br>
     <input type="number" name="cust-bw" id="cust-bw" value=0 required></input><br>
     <label for="cust-color">Customer Color Copies</label><br>

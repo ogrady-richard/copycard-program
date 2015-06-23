@@ -8,7 +8,7 @@ else
 {
     $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'root', 'Aboriginal$16', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 
-    $dbconn = $dbase->prepare('SELECT * FROM History;');
+    $dbconn = $dbase->prepare('SELECT TransactionID, CustomerID, EmployeeID, DATE_FORMAT(ts,"%b %d %Y %h:%i %p"), Action FROM History;');
 
     $dbconn->execute( );
 
@@ -19,7 +19,13 @@ else
           <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
           <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
           <script src="../vendors/jquery.dataTables.min.js"></script>
-          <script>$( function() {$("#x-table").DataTable();} )</script></head>';
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+          <script src="https://cdn.datatables.net/plug-ins/1.10.7/sorting/datetime-moment.js"></script>
+          <script>$( function() {
+                historyTable = $("#x-table").DataTable( {"columnDefs":[{"type":"date","targets":2 }]} );                
+                })
+
+          </script></head>';
 
     echo "<body><h1>Transaction History</h1><h2>Return to the <a href='cc.php'>Copy Card Program</a></h2><div style='width:80%'><table id='x-table' width=80%><thead><th>Customer ID</th><th>Employee ID</th><th>Timestamp</th><th>Action</th></thead><tbody>";
     foreach( $result as $entry ) {

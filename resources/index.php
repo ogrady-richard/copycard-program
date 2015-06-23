@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if ( isset( $_SESSION['PERMISSION_LEVEL'] ) && $_SESSION['PERMISSION_LEVEL'] < 3 ) {
+   header( 'Location: cc.php' ) ;
+   exit;
+}
+?>
+
 <!doctype html>
 <html lang="us">
 <head>
@@ -20,6 +29,7 @@
     <input type="text" name="username" id="username"></input><br>
     <label for="password">Password:</label><br>
     <input type="password" name="password" id="password"></input>
+    <p>Can't login? Get help <a href="http://45.55.248.93/osTicket/osTicket-1.8/">here</a>.</p>
     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </form>
     </div>

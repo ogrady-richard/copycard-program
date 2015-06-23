@@ -24,20 +24,69 @@ body {
     overflow: hidden;
 }
 
+.user-btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #175c87);
+  background-image: -moz-linear-gradient(top, #3498db, #175c87);
+  background-image: -ms-linear-gradient(top, #3498db, #175c87);
+  background-image: -o-linear-gradient(top, #3498db, #175c87);
+  background-image: linear-gradient(to bottom, #3498db, #175c87);
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 4px 20px 5px 20px;
+  text-decoration: none;
+}
+
+.user-btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #286f9e);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #286f9e);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #286f9e);
+  background-image: -o-linear-gradient(top, #3cb0fd, #286f9e);
+  background-image: linear-gradient(to bottom, #3cb0fd, #286f9e);
+  text-decoration: none;
+  outline: none;
+}
+
 #tableContainer {
     <?php
-        echo "background-color: {$bgColor[$userStyle]};";
         echo "background-image: url( {$bgImage[$userStyle]} );";
-        echo "color: {$textColor[$userStyle]};";
     ?>
     border: 3px solid black;
-    opacity: 0.7;
+    border-radius: 5px;
     padding: 8px;
     margin: auto;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 90%;
     height: 550px;
+}
+
+#header {
+    position: relative;
+    width: 80%;
+    height: 100px;
+    margin: auto;
+    padding: 10px;
+    border: 4px solid black;
+    border-radius: 5px;
+}
+
+.content {
+    <?php
+        echo "background-color: {$bgColor[$userStyle]};";
+        echo "color: {$textColor[$userStyle]};";
+    ?>
+    opacity: 0.8;
+}
+
+.content:hover {
+    transition: opacity 1s;
+    opacity: 1;
 }
 
 tr {
@@ -60,44 +109,14 @@ tr {
     background-color:#ffffff;
 }
 
-#tableContainer:hover {
-    transition: opacity 1s;
-    opacity: 1;
-}
-
-#header {
-    position: relative;
-    width: 80%;
-    height: 80px;
-    margin: auto;
-    padding: 10px;
-    border: 5px solid black;
-    border-radius: 5px;
-    <?php
-        echo "background-color: {$bgColor[$userStyle]};";
-    ?>
-    opacity: 0.6;
-}
-
-#header:hover {
-    transition: opacity 1s;
-    opacity: 1;
-}
-
 #leftSeperator {
     left: 50px;
     position: absolute;
     height: 75px;
 }
 
-#middleSeperator {
-    left: 450px;
-    position: absolute;
-    height: 75px;
-}
-
 #rightSeperator {
-    left: 450px;
+    left: 525px;
     position: absolute;
     height: 75px;
 }

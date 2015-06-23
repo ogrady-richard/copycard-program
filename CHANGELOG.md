@@ -50,17 +50,25 @@ June 16th, 2015 (History Update)
 - Cell borders around tables to improve readability.
 - (Not in Git) Added a helpdesk (Thanks, [osTicket](http://osticket.com/)!).
 - Data is now verified when a user tries to add a new customer.
-- CHANGELOG.md now has snapshot update information (wow!)
+- CHANGELOG.md now has snapshot update information (wow
+
+June 22nd, 2015
+- Accessing the login page will automatically redirect to the working page if a user is logged in.
+- Added a link to the helpdesk on the login page and the working page.
+- Add New Customer button more obvious and pretty.
+- New classes added for content divs.
+- Dates look nicer in history table. Sorting appears to work appropriately.
+- Added FPDF to the vendor list, for future generation of printable invoices and individual copy cards.
+- Minor changes to general working page layout.
+
 
 ## To-do:
 - More styles. Top priority.
-- Add a link to the helpdesk.
-- Make dates more intuitive  for searching in history DataTable
+- Make a new div to hold user controls, instead of two divs side by side.
 - Option to destroy temporary admin account in Admin menu.
 - Option to add a new employee from the Admin menu.
 - Stop using IDs for styles, start implementing classes instead.
 - Replace permission integers with human-readable equivalents.
-- Implement helpdesk support - allow users to open tickets.
 - Logout page should tell user their session has been terminated, and they are logged out.
  - Also check to make sure there is no unsaved data.
 - Allow employees to change their password.
@@ -68,6 +76,7 @@ June 16th, 2015 (History Update)
 - More informative error codes. Most are very generic.
 - File-by-file spot checking. Syntax and formatting is all over the place. Try for consistency.
 - More professional look.
+- Create PHP directory variables to avoid 
 - Administrator info page for at-a-glance statistics (number of users, weekly transactions, so on.)
 - Implement custom session timeout.
 - Folder and file organization.
@@ -82,4 +91,5 @@ June 16th, 2015 (History Update)
  - Permission checking especially. isAdmin() versus isset() and permission checks.
 - Customer Page for copy card requests and customer account information.
 - Printable backup copy cards.
+- (Not in Git) Start adding information to the helpdesk Knowledgebase.
 - ... And so much more!
