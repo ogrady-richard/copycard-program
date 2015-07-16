@@ -40,6 +40,10 @@ function resetForm( resetForm ) {
 }
 
 $( function() {
+    // COPYCARD SETTINGS
+    var RECEIPT_ID_LENGTH = 20;
+    var selectedCustomer = '';
+    var customerData = '';
     // Create the customer table DataTable object
     customerTable = $('#customer-table').DataTable({
                                         "columnDefs": [{"targets":[0,5,6],
@@ -56,6 +60,8 @@ $( function() {
                             width: 500
                             } );
     
+    $('#select-store-location').buttonset();
+    
     // Allow use of 'Enter' to submit a new customer from the add customer form
     $('#customer-information-form').submit( function(event) {addCustomer(); event.preventDefault();});
     
@@ -63,13 +69,15 @@ $( function() {
     refreshCustomerTable();
 
     // Create our debug dialog object, for testing purposes only
-    $( "#dialog" ).dialog({
+    $( "#cust-dialog" ).dialog({
     autoOpen: false,
+    width: 700,
+    position: {my:"center top", at:"center top", of:window},
     buttons: [
         {
             text: "Ok",
             click: function() {
-                $( "#dialog" ).dialog( "close" );
+                $( "#cust-dialog" ).dialog( "close" );
             }
         }]
     });
@@ -79,10 +87,179 @@ $( function() {
         $('#add-modal').dialog( 'open' );
     });
     
+    $('#add-use-copies').click( function() {
+        $('#manipulate-copies').dialog( 'open' );
+        $('#copy-tabs').tabs("option", "active", 0);
+    });
+    
+    $("#manipulate-copies" ).dialog({
+    autoOpen: false,
+    width: 700,
+    modal: true
+    });
+    
+    $("#process-transaction-tab").on( 'click', function() {
+        $.ajax({
+            url: './data/getCustomerInfo.php',
+            type: 'POST',
+            data: ({cid : selectedCustomer}),
+            success: function( ajaxReturn ) {
+                $('#transaction-details').show();
+                $('#database-loading').hide();
+                customerData =  JSON.parse(ajaxReturn);
+                
+                var str = "";
+                var totalBW = 0;
+                var totalColor = 0;
+                
+                str = str + "Existing B/W Copies: "
+                str = str + customerData[6] + "<br>";
+                totalBW = parseInt(customerData[6]);
+                
+                if( $("#bw-copies-added").val() > 0 ) {
+                    str = str + "B/W Copies to Add: "
+                    str = str + $("#bw-copies-added").val() + "<br>";
+                    totalBW = totalBW + parseInt($("#bw-copies-added").val());
+                }
+                
+                if( $("#bw-copies-used").val() > 0 ) {
+                    str = str + "B/W Copies to Use: "
+                    str = str + $("#bw-copies-used").val() + "<br>";
+                    totalBW = totalBW - parseInt($("#bw-copies-used").val());
+                }
+                
+                str = str + "<hr>"
+                
+                str = str + "Existing Color Copies: "
+                str = str + customerData[7] + "<br>";
+                totalColor = parseInt(customerData[7]);
+                
+                if( $("#color-copies-added").val() > 0 ) {
+                    str = str + "Color Copies to Add: "
+                    str = str + $("#color-copies-added").val() + "<br>";
+                    totalColor = totalColor + parseInt($("#color-copies-added").val());
+                }
+                
+                if( $("#color-copies-used").val() > 0 ) {
+                    str = str + "Color Copies to Use: "
+                    str = str + $("#color-copies-used").val() + "<br>";
+                    totalColor = totalColor - parseInt($("#color-copies-used").val());
+                }
+                str = str + "<hr>"
+                str = str + "<b>Remaining B/W After Transaction: "
+                str = str + totalBW + "</b><br>";
+                str = str + "<b>Remaining Color After Transaction: "
+                str = str + totalColor + "<br>";
+                str = str + "</b><hr>"
+                
+                $("#transaction-details").html(str);
+                    
+            },
+            error: function() {
+                alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
+                console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
+            }
+        });
+        
+    });
+    
+    $("#copy-tabs").tabs();
+    
     // Debug function - Call our debug modal to show the selected customers info
     $('#customer-table tbody').on('dblclick', 'tr', function () {
-        $( "#dialog" ).dialog( "open" );
-        $( "#foo").html( customerTable.row( this ).data().join('; ') );
+        selectedCustomer = customerTable.row(this).data()[0];
+        $('#loading-cust-info').show();
+        $('#show-cust-info').hide();
+        $.ajax({
+            url: './data/getCustomerInfo.php',
+            type: 'POST',
+            data: ({cid : selectedCustomer}),
+            success: function( ajaxReturn ) {
+                customerData = JSON.parse(ajaxReturn);
+                $("#cust-name-disp").html("<b>Name: </b>" + customerData[1] + ' ' + customerData[2]);
+                $("#created-disp").html("<b>Created: </b> N/A | <b>Modified:</b> N/A");
+                if( customerData[4] != '' )
+                    $("#cust-phone-disp").html("<b>Phone: </b>" + customerData[4] );
+                else
+                    $("#cust-phone-disp").html("<b>No Phone Provided</b>" );
+                if( customerData[5] != '' )
+                    $("#cust-email-disp").html("<b>Email: </b>" + customerData[5] );
+                else
+                    $("#cust-email-disp").html("<b>No Email Provided</b>" );
+                if( customerData[3] != '' )
+                    $("#cust-business-disp").html("<b>Business: </b>" + customerData[3] );
+                else
+                    $("#cust-business-disp").html("<b>No Business Provided</b>" );
+                $("#cust-bw-disp").html("<b>Black/White: </b>" + customerData[6] );
+                $("#cust-color-disp").html("<b>Color: </b>" + customerData[7] );
+                $("#auth-users-disp").html("<b>Authorized users:</b><br><textarea style='height:75px; resize:none;' disabled>Coming soon...</textarea>" );
+                
+                $('#loading-cust-info').hide();
+                $('#show-cust-info').show();
+            },
+            error: function() {
+                alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
+                console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
+            }
+        });
+        $( "#cust-dialog" ).dialog( "open" );
+    });
+    
+    $('#process-transaction-button').on('click', function () {
+        //Check the value of Receipt ID field
+        var hasReceiptID = ( $('#receipt-ID').val().length == RECEIPT_ID_LENGTH );
+        //Check the value of the job description field.
+        var hasJobDescription = ($('#job-description').val().length > 0);
+        //Create the transaction status value
+        var transactionIsGood = true;
+        
+        //Check to see if we are adding copies    
+        if( $("#color-copies-added").val() > 0 || $("#bw-copies-added").val() > 0 ) {
+            if( !hasReceiptID ) {
+                transactionIsGood = false;
+            }
+        }
+        
+        //Check to see if we are using copies
+        if( $("#color-copies-used").val() > 0 || $("#bw-copies-used").val() > 0 ) {
+            if( !hasJobDescription ) {
+                transactionIsGood = false;
+            }
+        }
+        
+        //Make sure we have a store location checked
+        if( typeof $('input[name="location"]:checked').val() == 'undefined' ) {
+            transactionIsGood = false;
+        }
+
+        if( transactionIsGood ) {
+            $('#transaction-details').hide();
+            $('#database-loading').show();
+            $.ajax({
+                 url: 'data/processTransaction.php', //This is the current doc
+                 type: "POST",
+                 dataType:'json', // add json datatype to get json
+                 data: ({customerID: selectedCustomer,
+                         bwCopiesToAdd: $("#bw-copies-added").val(),
+                         colorCopiesToAdd: $("#color-copies-added").val(),
+                         bwCopiesToUse: $("#bw-copies-used").val(),
+                         colorCopiesToUse: $("#color-copies-used").val(),
+                         receiptID: $('#receipt-ID').val(),
+                         jobDescription: $('#job-description').val(),
+                         storeLocation: $('input[name="location"]:checked').val()}),
+                 success: function(data){
+                     $("#transaction-submission-status").html('');
+                     console.log(data);
+                     $('#manipulate-copies').dialog( 'close' );
+                     refreshCustomerTable();
+                     
+                 }
+            });
+        } else {
+            $("#transaction-submission-status").html('We have encountered an error. Please check transaction details again.<br>If the issue persists, please contact the administrator via the <a href="http://45.55.248.93/osTicket/osTicket-1.8/" target="_blank">helpdesk</a>')
+                              .addClass("ui-state-error ui-corner-all");
+            setTimeout(function() { $("#transaction-submission-status").removeClass( "ui-state-error", 1500 ); }, 500 );
+        }
     });
     
     // Unrefined copy customer quick display
@@ -92,4 +269,5 @@ $( function() {
             $('#display-color').html( '<h3>Color</h3>'+customerTable.row( this ).data()[6] );
         }
     });
+
 });

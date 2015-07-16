@@ -24,4 +24,7 @@ INSERT INTO EmployeePermissions( EmployeeID, PermissionID ) VALUES ( -1, 1 ); # 
 
 CREATE TABLE Sessions ( SessionID char(64), SessionPermissions int NOT NULL, FOREIGN KEY (SessionPermissions) REFERENCES EmployeePermissions(PermissionID));
 
+CREATE VIEW AllHistory AS SELECT History.TransactionID, Employees.Username AS User, CONCAT(Customers.FirstName, ' ', Customers.LastName, ' (ID #', Customers.CustomerID, ')') AS CustomerName, History.ts AS Date, History.Action FROM Customers INNER JOIN History ON Customers.CustomerID = History.CustomerID INNER JOIN Employees ON History.EmployeeID = Employees.EmployeeID;
+
+
 # INSERT INTO Customers (FirstName, LastName, Business, Phone, Email, ColorCopies, BlackWhiteCopies) VALUES ( 'John', 'Baldwin', 'Rink Ink Inc.', '7752232345', 'jbaldwin@rinkink.net', 50, 75); # Test Value. Do not use.
