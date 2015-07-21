@@ -80,7 +80,12 @@
 - Added a customer PDF Page (customerPDF.php) that generates a pdf file for any given customer.
 - Changed currently unused buttons to red to reflect unusability.
 - Implemented Add User page to add new employees. Will also check for duplicate employees.
-- (I am probably missing some stuff this was a huge update.)
+- (I am probably missing some stuff this was a huge update.)'
+
+## Jule 20th, 2015
+- Added the Change Password screen.
+- Added an active modifier to the employee database, since deleting will not work.
+- Added and implemented the "Remove Temporary Admin" Option
 
 ## To-do:
 - More styles. Top priority.
@@ -92,11 +97,11 @@
 - Check for redundant CSS, make classes to correct (Ongoing)
 - Logout page should tell user their session has been terminated, and they are logged out.
  - Also check to make sure there is no unsaved data.
-- Allow employees to change their password.
 - Allow employees to change their style.
 - More informative error codes. Most are very generic.
 - File-by-file spot checking. Syntax and formatting is all over the place. Try for consistency.
 - More professional look.
+- Password recovery option
 - Administrator info page for at-a-glance statistics (number of users, weekly transactions, so on.)
 - Alert user when their session has expired.
 - Folder and file organization.

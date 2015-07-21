@@ -13,10 +13,6 @@ html {
     height: 100%
 }
 
-.no-overflow {
-    overflow:hidden;
-}
-
 body {
     height: 100%;
     width: 85%;
@@ -24,7 +20,6 @@ body {
     background<?php echo "{$bodyColor[$userStyle]}";?>
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow: hidden;
 }
 
 .user-btn {
@@ -110,7 +105,6 @@ body {
         echo "color: {$textColor[$userStyle]};";
     ?>
     opacity: 0.8;
-    overflow: auto;
 }
 
 .content:hover {
@@ -177,4 +171,30 @@ tr {
     background-image: linear-gradient(to bottom, #ffd4d4, #cc7e7e);
     text-decoration: none;
     outline: none;
+}
+
+.config-button {
+    background: #575757;
+    background-image: -webkit-linear-gradient(top, #575757, #383838);
+    background-image: -moz-linear-gradient(top, #575757, #383838);
+    background-image: -ms-linear-gradient(top, #575757, #383838);
+    background-image: -o-linear-gradient(top, #575757, #383838);
+    background-image: linear-gradient(to bottom, #575757, #383838);
+}
+
+.config-button:hover, .config-button:focus {
+    background: #4d4d4d;
+    background-image: -webkit-linear-gradient(top, #4d4d4d, #0f0f0f);
+    background-image: -moz-linear-gradient(top, #4d4d4d, #0f0f0f);
+    background-image: -ms-linear-gradient(top, #4d4d4d, #0f0f0f);
+    background-image: -o-linear-gradient(top, #4d4d4d, #0f0f0f);
+    background-image: linear-gradient(to bottom, #4d4d4d, #0f0f0f);
+    text-decoration: none;
+    outline: none;
+}
+
+.ui-success {
+	border: 1px solid #BCE5BC;
+	background: #D1FFD1;
+	color: #363636;
 }

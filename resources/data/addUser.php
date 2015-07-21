@@ -14,7 +14,7 @@
         if( !isset( $userExists[0] )) { 
             $passHash = password_hash( $_POST['pass'], PASSWORD_DEFAULT );
             
-            $dbconn = $dbase->prepare('INSERT INTO Employees(Name, Username, Hash, DefaultStyle) VALUES( :name, :username, :hash, "default-theme");');
+            $dbconn = $dbase->prepare('INSERT INTO Employees(Name, Username, Hash, DefaultStyle, PasswordReset, Active) VALUES( :name, :username, :hash, "default-theme", NOW(), 1)');
             
             $dbconn->execute( array( ':name' => $_POST['name'], ':username' => $_POST['username'], ':hash' => $passHash ) );
             

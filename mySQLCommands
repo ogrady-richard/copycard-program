@@ -5,11 +5,12 @@ CREATE DATABASE CopyCardProgram; # Create t he new Database
 USE CopyCardProgram; # Link into the Database
 
 CREATE TABLE Customers ( CustomerID int PRIMARY KEY AUTO_INCREMENT, FirstName char(35), LastName char(35), Business char(70), Phone char(10), Email char(255), BlackWhiteCopies int, ColorCopies int); # Customer Table - see README.md
+ALTER TABLE Customers AUTO_INCREMENT=10000;
 
 CREATE TABLE AuthorizedUsers ( CustomerID int NOT NULL, FirstName char(35), LastName char(35), Phone char(10), FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ); # Authorized Users Table - see README.md
 
-CREATE TABLE Employees ( EmployeeID int PRIMARY KEY AUTO_INCREMENT, Name char(60), Username char(35), Hash binary(60), DefaultStyle char(25) ); # Employees Table - see README.md
-INSERT INTO Employees( EmployeeID, Name, Username, Hash, DefaultStyle ) VALUES ( -1, 'Administrator', 'admin', '$2y$10$61YNLNtAaRnRDcI16bpcV.X/0/CDQAuhlEbVBmrB/Gtfy77hOp.VK', 'default-theme' ); # Default password 'admin'
+CREATE TABLE Employees ( EmployeeID int PRIMARY KEY AUTO_INCREMENT, Name char(60), Username char(35), Hash binary(60), DefaultStyle char(25), PasswordReset timestamp, Active bool); # Employees Table - see README.md
+INSERT INTO Employees( EmployeeID, Name, Username, Hash, DefaultStyle, PasswordReset, Active ) VALUES ( -1, 'Administrator', 'admin', '$2y$10$61YNLNtAaRnRDcI16bpcV.X/0/CDQAuhlEbVBmrB/Gtfy77hOp.VK', 'default-theme', NOW(), 1); # Default password 'admin'
 
 CREATE TABLE History ( TransactionID int PRIMARY KEY AUTO_INCREMENT, CustomerID int NOT NULL, EmployeeID int NOT NULL, ts timestamp, Action char(255), FOREIGN KEY (CustomerID) REFERENCES Customers( CustomerID ), FOREIGN KEY (EmployeeID) REFERENCES Employees( EmployeeID ) ); # History Table - see README.md
 

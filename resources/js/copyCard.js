@@ -82,6 +82,22 @@ $( function() {
         }]
     });
     
+    // Create the password reset dialog
+    $( '#password-reset-dialog' ).dialog( {
+        dialogClass: 'no-close',
+        modal: true,
+        closeOnEscape: false,
+        autoOpen: false,
+        width: 400,
+        draggable: false,
+        buttons: [ {
+            text: 'Reset Password',
+            click: function(){window.location.href="passwordReset.php";}
+        } ]
+        } );
+    // Prevent the form from submitting with the Enter key is pressed while in the form.
+    $('#login-form').submit( function(event) {tryLogin(); event.preventDefault();});
+    
     // Click event for the Add Customer button
     $('#add-new-customer').click( function() {
         $('#add-modal').dialog( 'open' );

@@ -9,7 +9,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
 <!DOCTYPE html>
 <html class="no-overflow" xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-    <title>ZNet - Copycard Program</title>
+    <title>ZNet - Copy Card Program</title>
     <meta charset="utf-8">
     
     <link rel="stylesheet" type="text/css" href="css/style.php">
@@ -24,16 +24,14 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
 <body>
     <div id="header" class="content">
         <div id="leftSeperator">
-            <span id="user"><h4>Logged in as <?php echo $_SESSION['NAME']; ?></h4></span> &squf;
+            <h4>Logged in as <?php echo $_SESSION['NAME']; ?></h4>
             <?php
-                if($_SESSION['PERMISSION_LEVEL'] == "1") echo "<span class=\"userControl\"><a href=\"adminControls.php\">Admin Menu</a></span> &squf;";
-                if($_SESSION['PERMISSION_LEVEL'] == "2") echo "<span class=\"userControl\"><a href=\"adminControls.php\">Manager Menu</a></span> &squf;";
-                if($_SESSION['PERMISSION_LEVEL'] == "3") echo "<span class=\"userControl\"><a href=\"adminControls.php\">User Menu</a></span> &squf;";
-            ?>
-            <span class="userControl"><a href="logout.php">Log out</a></span> <br>&squf;
-            <span class="userControl">Need assistance? Visit the <a href="http://45.55.248.93/osTicket/osTicket-1.8/">Helpdesk</a></span> &squf;
-        </div>
-        <div id="rightSeperator">
+                if($_SESSION['PERMISSION_LEVEL'] == "1") echo "<button class='user-btn' onclick='location.href=\"adminControls.php\"'>Admin Menu</button>";
+                if($_SESSION['PERMISSION_LEVEL'] == "2") echo "<button class='user-btn' onclick='location.href=\"adminControls.php\"'>Manager Menu</button>";
+                if($_SESSION['PERMISSION_LEVEL'] == "3") echo "<button class='user-btn' onclick='location.href=\"adminControls.php\"'>User Menu</button>";?>
+            <button class="user-btn" onclick="location.href='logout.php'">Logout</button>
+            <button class="user-btn" onclick="location.href='http://45.55.248.93/osTicket/osTicket-1.8/'">Need assistance? Visit the Helpdesk</button>
+
             <button id="add-new-customer" class="user-btn">Add new Customer</button>
         </div>
     </div>
@@ -67,14 +65,14 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
     <div id="cust-dialog" title="Customer Information">
         <center><img id="loading-cust-info" src="images/loading.gif" width=200px height=200px></center>
         <div id="show-cust-info">
-            <h1 id="cust-name-disp" ><b>Name:</b> Bob Smith</h1>
-            <p id="created-disp" ><b>Created:</b> Jun 10, 2015 | <b>Modified:</b> Jun 24, 2015</p>
-            <p id="cust-phone-disp" ><b>Phone:</b> 775-331-2115</p>
-            <p id="cust-email-disp" ><b>Email:</b> bsmith@google.com</p>
-            <p id="cust-business-disp" ><b>Business:</b> Bob Smith Co.</p>
-            <p id="cust-bw-disp" ><b>Black/White:</b> 50</p>
-            <p id="cust-color-disp" ><b>Color:</b> 22</p>
-            <p id="auth-users-disp" ><b>Authorized users:</b><br><textarea style="height:75px; resize:none;" disabled>Billy Smith&#13;&#10;John LeMose&#13;&#10;Tim Tammy</textarea></p>
+            <h1 id="cust-name-disp" ></h1>
+            <p id="created-disp" ></p>
+            <p id="cust-phone-disp" ></p>
+            <p id="cust-email-disp" ></p>
+            <p id="cust-business-disp" ></p>
+            <p id="cust-bw-disp" ></p>
+            <p id="cust-color-disp" ></p>
+            <p id="auth-users-disp" ></p>
             <div align="center">
                 <button class="user-btn" id="add-use-copies">Add/Use Copies</button>
                 <button class="user-btn no-function" id="authorized-user-access">Add/Remove Authorized Users</button><br>
@@ -132,7 +130,11 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                 <center><p id="transaction-submission-status"></p></center>
             </div>
         </div>
-    </div>
+    
+        <div id="password-reset-dialog" title="Reset your Password!">
+            <p class="ui-state-error" style="font-size:20px;">Our records indicate it has been a year since your last password reset.</p>
+            <p>Please use the button below to reset your password.</p>
+        </div>
     
 </body>
 </html>
