@@ -82,16 +82,19 @@
 - Implemented Add User page to add new employees. Will also check for duplicate employees.
 - (I am probably missing some stuff this was a huge update.)'
 
-## Jule 20th, 2015
+## July 21st, 2015
 - Added the Change Password screen.
 - Added an active modifier to the employee database, since deleting will not work.
 - Added and implemented the "Remove Temporary Admin" Option
+- Database requests now use a different user, instead of root.
+- User links on working page replaced with buttons
+- (Not in Git) Permanently moved CopyCard to a new server.
+- 
+
 
 ## To-do:
 - More styles. Top priority.
-- Check for existing customers
-- Make a new div to hold user controls, instead of two divs side by side.
-- Option to destroy temporary admin account in Admin menu.
+- Check for existing customers when adding customers.
 - Implement Remove User on the Admin Menu
 - Option to generate history reports.
 - Check for redundant CSS, make classes to correct (Ongoing)
@@ -101,7 +104,7 @@
 - More informative error codes. Most are very generic.
 - File-by-file spot checking. Syntax and formatting is all over the place. Try for consistency.
 - More professional look.
-- Password recovery option
+- Password recovery option.
 - Administrator info page for at-a-glance statistics (number of users, weekly transactions, so on.)
 - Alert user when their session has expired.
 - Folder and file organization.

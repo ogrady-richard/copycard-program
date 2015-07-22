@@ -4,7 +4,7 @@ require('../vendors/fpdf.php');
 if( isset($_GET['customerID'])) {
     $customerID = $_GET['customerID'];
     
-    $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'root', 'Aboriginal$16', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'ccdb', 'ccdb$2015!', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
     $dbconn = $dbase->prepare('SELECT * FROM Customers WHERE CustomerID=:customerID');
     

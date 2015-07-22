@@ -45,7 +45,7 @@
                 <h1>Admin Only</h1>
                 <h2>User Controls</h2>';
             
-            $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'root', 'Aboriginal$16', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'ccdb', 'ccdb$2015!', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
             
             $dbconn = $dbase->prepare("SELECT COUNT(*) FROM Employees JOIN EmployeePermissions ON Employees.EmployeeID = EmployeePermissions.EmployeeID WHERE EmployeePermissions.PermissionID = 1");
             

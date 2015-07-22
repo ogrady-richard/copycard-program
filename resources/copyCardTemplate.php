@@ -15,6 +15,8 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
     <link rel="stylesheet" type="text/css" href="css/style.php">
     <link rel="stylesheet" type="text/css" href="../vendors/jquery-ui-1.11.4/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="../vendors/jquery.dataTables.min.css">
+    
+    <link rel="icon" type="image/ico" href="/favicon.ico">
 
     <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
     <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
