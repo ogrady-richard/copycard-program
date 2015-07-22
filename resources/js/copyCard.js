@@ -285,5 +285,20 @@ $( function() {
             $('#display-color').html( '<h3>Color</h3>'+customerTable.row( this ).data()[6] );
         }
     });
+    
+    // Check to see if the user needs to reset their password
+    $.ajax({
+        url: 'data/checkPasswordReset.php',
+        success: function( data ) {
+            ajaxReturn = JSON.parse ( data );
+            if( ajaxReturn["msg"] == "true" ) {
+                $( '#password-reset-dialog' ).dialog( "open" );
+            }
+            console.log(ajaxReturn["msg"] + ', ' + ajaxReturn["isOver"]);
+        },
+        error: function( e ) {
+            console.log( "Error: " + e );
+        }
+    });
 
 });

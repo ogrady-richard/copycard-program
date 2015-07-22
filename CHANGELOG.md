@@ -89,7 +89,11 @@
 - Database requests now use a different user, instead of root.
 - User links on working page replaced with buttons
 - (Not in Git) Permanently moved CopyCard to a new server.
-- 
+
+## July 22nd, 2015
+- Added the password change dialog.
+
+Copycard is technically complete at this point. Future updates will be indexed by version number, and not date. Please refer to VERSION.md to get information on version updates.
 
 
 ## To-do:
