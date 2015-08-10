@@ -6,7 +6,7 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
     
     $clean = array_map('strip_tags', $_POST);
     
-    if( $clean['cust-f-name'] != '' && $clean['cust-l-name'] != '' && $clean['cust-bw'] != '' && $clean['cust-color'] != '' ) {
+    if( $clean['cust-bw'] != '' && $clean['cust-color'] != '' ) {
     // Prepare our database query to insert the new customer
     $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, Email, BlackWhiteCopies, ColorCopies) 
                                VALUES (?,?,?,?,?,?,?)');
@@ -23,7 +23,13 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
     
     $dbconn = $dbase->prepare('INSERT INTO History(CustomerID, EmployeeID, Action) VALUES (?,?,?)');
     
-    $dbconn->execute( array( $result[0], $_SESSION['EMPLOYEE_ID'], "Added customer {$clean['cust-f-name']} {$clean['cust-l-name']}, with {$clean['cust-bw']} black and white copies, and {$clean['cust-color']} color copies." )  );
+    if( $clean['cust-f-name'] == '' && $clean['cust-f-name'] == '' ) {
+        $dbconn->execute( array( $result[0], $_SESSION['EMPLOYEE_ID'], "Added business {$clean['cust-business']}, with {$clean['cust-bw']} black and white copies, and {$clean['cust-color']} color copies, and no primary user." )  );
+    }
+    
+    else {
+        $dbconn->execute( array( $result[0], $_SESSION['EMPLOYEE_ID'], "Added customer {$clean['cust-f-name']} {$clean['cust-l-name']}, with {$clean['cust-bw']} black and white copies, and {$clean['cust-color']} color copies." )  );
+    }
     
     $dbase = null;
     }

@@ -47,9 +47,9 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
         <p> Please fill out the customer information below.</p>
         <form id="customer-information-form" method="POST">
             <label for="cust-f-name">Customer First Name</label><br>
-                <input type="text" name="cust-f-name" id="cust-f-name" maxlength=35 placeholder="Required" required></input><br>
+                <input type="text" name="cust-f-name" id="cust-f-name" maxlength=35></input><br>
             <label for="cust-l-name">Customer Last Name</label><br>
-                <input type="text" name="cust-l-name" id="cust-l-name" maxlength=35 placeholder="Required" required></input><br>    
+                <input type="text" name="cust-l-name" id="cust-l-name" maxlength=35></input><br>    
             <label for="cust-phone">Customer Phone Number</label><br>
                 <input type="tel" name="cust-phone" id="cust-phone" maxlength=10></input><br>
             <label for="cust-email">Customer Email</label><br>

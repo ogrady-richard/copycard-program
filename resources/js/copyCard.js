@@ -192,7 +192,12 @@ $( function() {
             data: ({cid : selectedCustomer}),
             success: function( ajaxReturn ) {
                 customerData = JSON.parse(ajaxReturn);
-                $("#cust-name-disp").html("<b>Name: </b>" + customerData[1] + ' ' + customerData[2]);
+                if( customerData[1] == '' && customerData[2] == '' ) {
+                    $("#cust-name-disp").html("<b>Name: </b> <i>-Business Account-</i>");
+                }
+                else { 
+                    $("#cust-name-disp").html("<b>Name: </b>" + customerData[1] + ' ' + customerData[2]);
+                }
                 $("#created-disp").html("<b>Created: </b> N/A | <b>Modified:</b> N/A");
                 if( customerData[4] != '' )
                     $("#cust-phone-disp").html("<b>Phone: </b>" + customerData[4] );
@@ -232,14 +237,16 @@ $( function() {
         //Check to see if we are adding copies    
         if( $("#color-copies-added").val() > 0 || $("#bw-copies-added").val() > 0 ) {
             if( !hasReceiptID ) {
-                transactionIsGood = false;
+                console.log('No Reciept ID Provided.');
+                $('#receipt-ID').val( 'None' );
             }
         }
         
         //Check to see if we are using copies
         if( $("#color-copies-used").val() > 0 || $("#bw-copies-used").val() > 0 ) {
             if( !hasJobDescription ) {
-                transactionIsGood = false;
+                console.log('No Job Description Provided.');
+                $('#job-description').val( 'None' );
             }
         }
         
