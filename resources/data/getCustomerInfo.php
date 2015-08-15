@@ -6,15 +6,25 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
 
     $customerID = $_POST['cid'];
     
-    $dbconn = $dbase->prepare('SELECT * FROM Customers WHERE CustomerID = :custid LIMIT 1;');
+    $dbconn = $dbase->prepare('SELECT * FROM Customers JOIN History ON Customers.CustomerID = History.CustomerID WHERE Customers.CustomerID = :custid ORDER BY ts;');
     
     $dbconn->execute( array( ':custid' => $customerID ) );
     
-    $result = $dbconn->fetch(PDO::FETCH_NUM);
+    $result = $dbconn->fetchAll(PDO::FETCH_BOTH);
+    
+    $created = $result[0]['ts'];
+    
+    $modified = end($result)['ts'];
     
     $dbase = null;
     
-    $result = json_encode($result);
+    $returnArray = array();
+    
+    $returnArray['custData'] = $result[0];
+    $returnArray['created'] = $created;
+    $returnArray['modified'] = $modified;
+    
+    $result = json_encode($returnArray);
     
     echo $result;
 }

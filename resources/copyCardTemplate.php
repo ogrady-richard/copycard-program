@@ -18,6 +18,9 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
     
     <link rel="icon" type="image/ico" href="/favicon.ico">
 
+    <script type="text/javascript">
+         if (typeof console === "undefined") var console = {log: function(logMsg) {}};
+    </script>
     <script src="../vendors/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
     <script src="../vendors/jquery-ui-1.11.4/jquery-ui.min.js"></script>
     <script src="../vendors/jquery.dataTables.min.js"></script>
@@ -52,14 +55,16 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                 <input type="text" name="cust-l-name" id="cust-l-name" maxlength=35></input><br>    
             <label for="cust-phone">Customer Phone Number</label><br>
                 <input type="tel" name="cust-phone" id="cust-phone" maxlength=10></input><br>
+            <label for="cust-phone">Customer Phone Extension</label><br>
+                <input type="tel" name="cust-phone-ext" id="cust-phone-ext" maxlength=8></input><br>
             <label for="cust-email">Customer Email</label><br>
                 <input type="email" name="cust-email" id="cust-email"></input><br>
             <label for="cust-business">Customer Business</label><br>
                 <input type="text" name="cust-business" id="cust-business" maxlength=70></input><br>
             <label for="cust-bw">Customer Black and White Copies</label><br>
-                <input type="number" name="cust-bw" id="cust-bw" value=0 required></input><br>
+                <input type="number" class="bw-input"name="cust-bw" id="cust-bw" value=0 required></input><br>
             <label for="cust-color">Customer Color Copies</label><br>
-                <input type="number" name="cust-color" id="cust-color" value=0 required></input><br>
+                <input type="number" class="color-input" name="cust-color" id="cust-color" value=0 required></input><br>
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </form>
     </div>
@@ -94,11 +99,11 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                 <h2>Enter the Quantity of Copies to Add</h2><br>
                 <div class="copies-left">
                     <h3>B/W Copies</h3>
-                    <p><input id="bw-copies-added" type="number" placeholder="Quantity..."></p>
+                    <p><input id="bw-copies-added" class="bw-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <div class="copies-right">
                     <h3>Color Copies</h3>
-                    <p><input id="color-copies-added" type="number" placeholder="Quantity..."></p>
+                    <p><input id="color-copies-added" class="color-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <h3>Receipt ID</h3>
                 <p><input id="receipt-ID" class="wide-input" type="text" placeholder="14225463..."></p>
@@ -107,12 +112,12 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                 <h2>Enter the Quantity of Copies to Use</h2><br>
                 <div class="copies-left">
                     <h3>B/W Copies</h3>
-                    <p><input id="bw-copies-used" type="number" placeholder="Quantity..."></p>
+                    <p><input id="bw-copies-used" class="bw-input" type="number" placeholder="Quantity..."></p>
 
                 </div>
                 <div class="copies-right">
                     <h3>Color Copies</h3>
-                    <p><input id="color-copies-used" type="number" placeholder="Quantity..."></p>
+                    <p><input id="color-copies-used" class="color-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <h3>Job Description</h3>
                 <p><input id="job-description" class="wide-input" type="text" placeholder="'Smart Eats' Menus"></p>

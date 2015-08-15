@@ -1,16 +1,21 @@
 # Version History
 
 ## 1.0.0
-### August 10, 2015
-- Customer name is now optional when adding customers - the only required fields for adding a new customer are copies, per customer request.
-- Receipt ID and Job Description are now optional, per customer request.
--  
+### July 22, 2015
+- Copycard released. Future changes will be monitored here.
 
 ## 1.0.1
 ### August 10, 2015
 - Customer name is now optional when adding customers - the only required fields for adding a new customer are copies, per customer request.
 - Receipt ID and Job Description are now optional, per customer request.
 
+## 1.0.2
+### August 14, 2015
+- Fixed an IE compatibility issue when processing a transaction.
+- Color copy fields are now colourful to quickly distinguish between black and white copies.
+- Black and White copy fields fade to grey to quickly distinguish between color copies.
+- Added Customer Telephone Extensions
+- Customer fields now have correct created and modified data on their info screen.
 
 ## To-do
 - More styles. Top priority.

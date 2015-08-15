@@ -1,3 +1,5 @@
+var selectedCustomer = '';
+
 function refreshCustomerTable() {
     $.ajax({
         url: './data/getCustomers.php',
@@ -5,6 +7,51 @@ function refreshCustomerTable() {
         success: function( ajaxReturn ) {
             customerTable.clear();
             customerTable.rows.add(JSON.parse(ajaxReturn)).draw();
+        },
+        error: function() {
+            alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
+            console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
+        }
+    });
+}
+
+function refreshCustomerDialogInformation() {
+    $.ajax({
+        url: './data/getCustomerInfo.php',
+        type: 'POST',
+        data: ({cid : selectedCustomer}),
+        success: function( ajaxReturn ) {
+            customerData = JSON.parse(ajaxReturn)['custData'];
+            dateCreated = JSON.parse(ajaxReturn)['created'];
+            dateModified = JSON.parse(ajaxReturn)['modified'];
+            if( customerData['FirstName'] == '' && customerData['LastName'] == '' ) {
+                $("#cust-name-disp").html("<b>Name: </b> <i>-Business Account-</i>");
+            }
+            else { 
+                $("#cust-name-disp").html("<b>Name: </b>" + customerData['FirstName'] + ' ' + customerData['LastName']);
+            }
+            $("#created-disp").html("<b>Created: </b>" + dateCreated.slice(0,10) + " | <b>Modified:</b> " + dateModified.slice(0,10));
+            if( customerData['Phone'] != '' ) {
+                $("#cust-phone-disp").html("<b>Phone: </b>" + customerData['Phone']);
+                if(customerData['TelExtension'] != '')
+                    $("#cust-phone-disp").html($("#cust-phone-disp").html + " +" + customerData['TelExtension']);
+            }
+            else
+                $("#cust-phone-disp").html("<b>No Phone Provided</b>" );
+            if( customerData['Email'] != '' )
+                $("#cust-email-disp").html("<b>Email: </b>" + customerData['Email'] );
+            else
+                $("#cust-email-disp").html("<b>No Email Provided</b>" );
+            if( customerData['Business'] != '' )
+                $("#cust-business-disp").html("<b>Business: </b>" + customerData['Business'] );
+            else
+                $("#cust-business-disp").html("<b>No Business Provided</b>" );
+            $("#cust-bw-disp").html("<b>Black/White: </b>" + customerData['BlackWhiteCopies'] );
+            $("#cust-color-disp").html("<b>Color: </b>" + customerData['ColorCopies'] );
+            $("#auth-users-disp").html("<b>Authorized users:</b><br><textarea style='height:75px; resize:none;' disabled>Coming soon...</textarea>" );
+            
+            $('#loading-cust-info').hide();
+            $('#show-cust-info').show();
         },
         error: function() {
             alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
@@ -42,7 +89,6 @@ function resetForm( resetForm ) {
 $( function() {
     // COPYCARD SETTINGS
     var RECEIPT_ID_LENGTH = 20;
-    var selectedCustomer = '';
     var customerData = '';
     // Create the customer table DataTable object
     customerTable = $('#customer-table').DataTable({
@@ -122,15 +168,15 @@ $( function() {
             success: function( ajaxReturn ) {
                 $('#transaction-details').show();
                 $('#database-loading').hide();
-                customerData =  JSON.parse(ajaxReturn);
+                customerData =  JSON.parse(ajaxReturn)['custData'];
                 
                 var str = "";
                 var totalBW = 0;
                 var totalColor = 0;
                 
                 str = str + "Existing B/W Copies: "
-                str = str + customerData[6] + "<br>";
-                totalBW = parseInt(customerData[6]);
+                str = str + customerData['BlackWhiteCopies'] + "<br>";
+                totalBW = parseInt(customerData['BlackWhiteCopies']);
                 
                 if( $("#bw-copies-added").val() > 0 ) {
                     str = str + "B/W Copies to Add: "
@@ -147,8 +193,8 @@ $( function() {
                 str = str + "<hr>"
                 
                 str = str + "Existing Color Copies: "
-                str = str + customerData[7] + "<br>";
-                totalColor = parseInt(customerData[7]);
+                str = str + customerData['ColorCopies'] + "<br>";
+                totalColor = parseInt(customerData['ColorCopies']);
                 
                 if( $("#color-copies-added").val() > 0 ) {
                     str = str + "Color Copies to Add: "
@@ -186,43 +232,7 @@ $( function() {
         selectedCustomer = customerTable.row(this).data()[0];
         $('#loading-cust-info').show();
         $('#show-cust-info').hide();
-        $.ajax({
-            url: './data/getCustomerInfo.php',
-            type: 'POST',
-            data: ({cid : selectedCustomer}),
-            success: function( ajaxReturn ) {
-                customerData = JSON.parse(ajaxReturn);
-                if( customerData[1] == '' && customerData[2] == '' ) {
-                    $("#cust-name-disp").html("<b>Name: </b> <i>-Business Account-</i>");
-                }
-                else { 
-                    $("#cust-name-disp").html("<b>Name: </b>" + customerData[1] + ' ' + customerData[2]);
-                }
-                $("#created-disp").html("<b>Created: </b> N/A | <b>Modified:</b> N/A");
-                if( customerData[4] != '' )
-                    $("#cust-phone-disp").html("<b>Phone: </b>" + customerData[4] );
-                else
-                    $("#cust-phone-disp").html("<b>No Phone Provided</b>" );
-                if( customerData[5] != '' )
-                    $("#cust-email-disp").html("<b>Email: </b>" + customerData[5] );
-                else
-                    $("#cust-email-disp").html("<b>No Email Provided</b>" );
-                if( customerData[3] != '' )
-                    $("#cust-business-disp").html("<b>Business: </b>" + customerData[3] );
-                else
-                    $("#cust-business-disp").html("<b>No Business Provided</b>" );
-                $("#cust-bw-disp").html("<b>Black/White: </b>" + customerData[6] );
-                $("#cust-color-disp").html("<b>Color: </b>" + customerData[7] );
-                $("#auth-users-disp").html("<b>Authorized users:</b><br><textarea style='height:75px; resize:none;' disabled>Coming soon...</textarea>" );
-                
-                $('#loading-cust-info').hide();
-                $('#show-cust-info').show();
-            },
-            error: function() {
-                alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
-                console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
-            }
-        });
+        refreshCustomerDialogInformation();
         $( "#cust-dialog" ).dialog( "open" );
     });
     
@@ -275,7 +285,7 @@ $( function() {
                      console.log(data);
                      $('#manipulate-copies').dialog( 'close' );
                      refreshCustomerTable();
-                     
+                     refreshCustomerDialogInformation()
                  }
             });
         } else {
@@ -307,5 +317,4 @@ $( function() {
             console.log( "Error: " + e );
         }
     });
-
 });

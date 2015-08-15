@@ -41,6 +41,14 @@ body {
     outline: none;
 }
 
+.color-input {
+    background: linear-gradient( to right, #CCFFFF, #6699FF );
+}
+
+.bw-input {
+    background: linear-gradient( to right, #FFFFFF, #B2B2B2 );
+}
+
 .copies-left {
     float: left;
     width: 250px;
