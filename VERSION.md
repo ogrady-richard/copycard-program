@@ -1,13 +1,16 @@
+1.0.3
+Added version change alerts. Altered "Process Transaction" window to clear when opened. Customer phone extensions implemented fully. Customer PDF page cleaned up.
+
 # Version History
 
-## 1.0.0
-### July 22, 2015
-- Copycard released. Future changes will be monitored here.
-
-## 1.0.1
-### August 10, 2015
-- Customer name is now optional when adding customers - the only required fields for adding a new customer are copies, per customer request.
-- Receipt ID and Job Description are now optional, per customer request.
+## 1.0.3
+### August 17, 2015
+- Added version change alerts - will be modified to be version reminders on the CopyCard working page.
+- Changed the order of the version display in VERSION.md - latest version will now appear at the top.
+- Process Transaction window will now clear every time it is opened, preventing accidental garbage data errors.
+- Customer tel. extensions now properly read and write in the database and on the customer information screen.
+- Customer tel. numbers are formatted nicer for quicker reading.
+- Minor formatting changes to the customer pdf generation page to account for business only accounts.
 
 ## 1.0.2
 ### August 14, 2015
@@ -17,8 +20,20 @@
 - Added Customer Telephone Extensions
 - Customer fields now have correct created and modified data on their info screen.
 
-## To-do
+## 1.0.1
+### August 10, 2015
+- Customer name is now optional when adding customers - the only required fields for adding a new customer are copies, per customer request.
+- Receipt ID and Job Description are now optional, per customer request.
+
+## 1.0.0
+### July 22, 2015
+- Copycard released. Future changes will be monitored here.
+
+---
+
+# To-do
 - More styles. Top priority.
+- Verify e-mails for new users before saving user to the database.
 - Check for existing customers when adding customers.
 - Implement Remove User on the Admin Menu
 - Option to generate history reports.

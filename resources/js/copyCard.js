@@ -1,4 +1,6 @@
 var selectedCustomer = '';
+var currentVersion = '';
+var versionSummary = '';
 
 function refreshCustomerTable() {
     $.ajax({
@@ -12,6 +14,22 @@ function refreshCustomerTable() {
             alert("Unable to retrieve customer information at this time. Please contact the administrator if this issue persists.");
             console.error( "Issues communicating with the server. Please refresh and try again. (404 Not Found)" );
         }
+    });
+}
+
+function getCurrentVersion() {
+    $.ajax({
+        url: './data/getVersion.php',
+        type: 'JSON',
+        success: function(data) {
+            returnData = JSON.parse(data);
+            currentVersion = returnData['v'];
+            versionSummary = returnData['s'];
+            },
+        error: function() {
+            alert("Warning! Error retrieving version data. You may be running on an outdated version of CopyCard. Please contact your administrator immediately. Continued use of CopyCard is not recommended until this issue is resolved.");
+        },
+        async: false
     });
 }
 
@@ -30,11 +48,12 @@ function refreshCustomerDialogInformation() {
             else { 
                 $("#cust-name-disp").html("<b>Name: </b>" + customerData['FirstName'] + ' ' + customerData['LastName']);
             }
+            $("#cust-id-disp").html("<i>ID: " + customerData['CustomerID'] + "</i>");
             $("#created-disp").html("<b>Created: </b>" + dateCreated.slice(0,10) + " | <b>Modified:</b> " + dateModified.slice(0,10));
             if( customerData['Phone'] != '' ) {
-                $("#cust-phone-disp").html("<b>Phone: </b>" + customerData['Phone']);
+                $("#cust-phone-disp").html("<b>Phone: </b>" + customerData['Phone'].replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, '$1.$2.$3'));
                 if(customerData['TelExtension'] != '')
-                    $("#cust-phone-disp").html($("#cust-phone-disp").html + " +" + customerData['TelExtension']);
+                    $("#cust-phone-disp").html("<b>Phone: </b>" + customerData['Phone'].replace(/(\d\d\d)(\d\d\d)(\d\d\d\d)/, '$1.$2.$3') + " ex: " + customerData['TelExtension']);
             }
             else
                 $("#cust-phone-disp").html("<b>No Phone Provided</b>" );
@@ -89,7 +108,27 @@ function resetForm( resetForm ) {
 $( function() {
     // COPYCARD SETTINGS
     var RECEIPT_ID_LENGTH = 20;
-    var customerData = '';
+    var customerData = "";
+    
+    getCurrentVersion();
+    
+    // Prevent default settings for the transaction form
+    $("#manipulate-copies-fields").on( "submit", function(e) {
+        e.preventDefault();
+        return false;
+    });
+    
+    if( currentVersion == "" ) {
+        alert("Warning! Version information is invalid. You may be running on an outdated version of CopyCard. Please contact your administrator immediately. Continued use of CopyCard is not recommended until this issue is resolved." );
+    }
+    
+    // Check the users current version cookie and if it has been updated, notify user.
+    if ( !(document.cookie.indexOf( "version=" + currentVersion ) >= 0) ) {
+        $("<div title='New Update' style='background-color: #D65C33;'><p>There has been an update since your last login.</p><p>Version changes: " + versionSummary + "</p><p><a href='https://github.com/ogrady-richard/copycard-program/blob/master/VERSION.md' target='_blank'>Official Change List</a></p> </div>").dialog();
+        document.cookie = "version=" + currentVersion;
+
+    }
+    
     // Create the customer table DataTable object
     customerTable = $('#customer-table').DataTable({
                                         "columnDefs": [{"targets":[0,5,6],
@@ -155,9 +194,10 @@ $( function() {
     });
     
     $("#manipulate-copies" ).dialog({
-    autoOpen: false,
-    width: 700,
-    modal: true
+        autoOpen: false,
+        width: 700,
+        modal: true,
+        open: function() { resetForm( '#manipulate-copies-fields' ); }
     });
     
     $("#process-transaction-tab").on( 'click', function() {
@@ -285,7 +325,7 @@ $( function() {
                      console.log(data);
                      $('#manipulate-copies').dialog( 'close' );
                      refreshCustomerTable();
-                     refreshCustomerDialogInformation()
+                     refreshCustomerDialogInformation();
                  }
             });
         } else {

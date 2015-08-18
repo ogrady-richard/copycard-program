@@ -73,6 +73,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
         <center><img id="loading-cust-info" src="images/loading.gif" width=200px height=200px></center>
         <div id="show-cust-info">
             <h1 id="cust-name-disp" ></h1>
+            <span id="cust-id-disp" style="color:gray"></span>
             <p id="created-disp" ></p>
             <p id="cust-phone-disp" ></p>
             <p id="cust-email-disp" ></p>
@@ -95,6 +96,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
             <li style="outline:none"><a href="#use-copies">Use</a></li>
             <li id="process-transaction-tab"><a href="#process-transaction">Process</a></li>
             </ul>
+            <form id="manipulate-copies-fields">
             <div id="add-copies">
                 <h2>Enter the Quantity of Copies to Add</h2><br>
                 <div class="copies-left">
@@ -106,7 +108,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                     <p><input id="color-copies-added" class="color-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <h3>Receipt ID</h3>
-                <p><input id="receipt-ID" class="wide-input" type="text" placeholder="14225463..."></p>
+                <p><input id="receipt-ID" class="wide-input" type="text" placeholder="Scan payment receipt here..."></p>
             </div>
             <div id="use-copies">
                 <h2>Enter the Quantity of Copies to Use</h2><br>
@@ -120,7 +122,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                     <p><input id="color-copies-used" class="color-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <h3>Job Description</h3>
-                <p><input id="job-description" class="wide-input" type="text" placeholder="'Smart Eats' Menus"></p>
+                <p><input id="job-description" class="wide-input" type="text" placeholder="Enter a job description..."></p>
             </div>
             <div id="process-transaction">
                 <h2>Confirm the Transaction Information Below</h2>
@@ -134,6 +136,7 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                     </div>
                     <button class="user-btn" id="process-transaction-button">Process</button>
                 </div>
+                </form>
                 <center><p id="transaction-submission-status"></p></center>
             </div>
         </div>

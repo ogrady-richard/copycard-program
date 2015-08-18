@@ -8,11 +8,11 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
     
     if( $clean['cust-bw'] != '' && $clean['cust-color'] != '' ) {
     // Prepare our database query to insert the new customer
-    $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, Email, BlackWhiteCopies, ColorCopies) 
-                               VALUES (?,?,?,?,?,?,?)');
+    $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, TelExtension, Email, BlackWhiteCopies, ColorCopies) 
+                               VALUES (?,?,?,?,?,?,?,?)');
     
     $dbconn->execute( array( $clean['cust-f-name'], $clean['cust-l-name'], $clean['cust-business'], 
-                      $clean['cust-phone'], $clean['cust-email'], $clean['cust-bw'], 
+                      $clean['cust-phone'], $clean['cust-phone-ext'], $clean['cust-email'], $clean['cust-bw'], 
                       $clean['cust-color'] ) );
     
     $dbconn = $dbase->prepare('SELECT LAST_INSERT_ID()');

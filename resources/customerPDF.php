@@ -30,6 +30,13 @@ if( empty($customerHistory) ) {
 
 $pdf = new FPDF();
 $pdf->AddPage();
+$pdf->SetFont('Arial','B',12);
+if( $customerInfo[1] != '' && $customerInfo[2] != '' ) {
+    $pdf->Cell(0,0,$customerInfo[1][0].'. '.$customerInfo[2],0,1,'R');
+}
+else {
+    $pdf->Cell(0,0,$customerInfo[3],0,1,'R');
+}
 $pdf->SetFont('Arial','B',16);
 $pdf->Write(8,'UPS Store');
 $pdf->Ln();
@@ -47,21 +54,30 @@ $pdf->Ln();
 $pdf->SetFont('Arial','',12);
 $pdf->Write(8,'Customer ID: '.$customerID);
 $pdf->Ln();
-$pdf->Write(8,'Customer Name: '.$customerInfo[2].', '.$customerInfo[1]);
+if( $customerInfo[1] != '' && $customerInfo[2] != '' ) {
+    $pdf->Write(8,'Customer Name: '.$customerInfo[2].', '.$customerInfo[1]);
+}
+else {
+    $pdf->Write(8,'Customer Name: -Business Account-');
+}
 $pdf->Ln();
 $pdf->Write(8,'Customer Business: '.$customerInfo[3]);
 $pdf->Ln();
-if( $customerInfo[4] != '' )
-    $pdf->Write(8,'Customer Phone: ('.substr($customerInfo[4], 0, 3).') '.substr($customerInfo[4], 2, 3).' - '.substr($customerInfo[4], 5, 4) );
+if( $customerInfo[4] != '' ) {
+    if( $customerInfo[5] == '' )
+        $pdf->Write(8,'Customer Phone: ('.substr($customerInfo[4], 0, 3).') '.substr($customerInfo[4], 2, 3).' - '.substr($customerInfo[4], 5, 4) );
+    else    
+        $pdf->Write(8,'Customer Phone: ('.substr($customerInfo[4], 0, 3).') '.substr($customerInfo[4], 2, 3).' - '.substr($customerInfo[4], 5, 4).' ex'.$customerInfo[5]);
+}
 else
     $pdf->Write(8,'Customer Phone: ');
 $pdf->Ln();
 $pdf->Write(8,'Customer Email: '.$customerInfo[5]);
 $pdf->Ln();
 $pdf->SetFont('Arial','B',12);
-$pdf->Write(8,'Remaining Black/White Copies: '.$customerInfo[6]);
+$pdf->Write(8,'Remaining Black/White Copies: '.$customerInfo[7]);
 $pdf->Ln();
-$pdf->Write(8,'Remaining Color Copies: '.$customerInfo[7]);
+$pdf->Write(8,'Remaining Color Copies: '.$customerInfo[8]);
 $pdf->Ln();
 $pdf->Ln();
 $pdf->SetFont('Arial','I',14);
