@@ -1,4 +1,31 @@
+var currentVersion = '';
+
+function getCurrentVersion() {
+    $.ajax({
+        url: './data/getVersion.php',
+        type: 'JSON',
+        success: function(data) {
+            returnData = JSON.parse(data);
+            currentVersion = returnData['v'];
+            },
+        error: function() {
+            alert("Warning! Error retrieving version data. You may be running on an outdated version of CopyCard. Please contact your administrator immediately. Continued use of CopyCard is not recommended until this issue is resolved.");
+        },
+        async: false
+    });
+}
+
 $( function() {
+    
+    getCurrentVersion();
+    
+    if( currentVersion != "" ) {
+        $('#currentVersionDisplay').html("Current version: " + currentVersion );
+    }
+    else {
+        $('#currentVersionDisplay').addClass("ui-state-error ui-corner-all");
+    }
+    
     $( '#dialog' ).dialog( {
         dialogClass: 'no-close',
         modal: true,

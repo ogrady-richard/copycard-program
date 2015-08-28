@@ -29,8 +29,9 @@ if ( isset( $_SESSION['PERMISSION_LEVEL'] ) && $_SESSION['PERMISSION_LEVEL'] < 3
     <input type="text" name="username" id="username"></input><br>
     <label for="password">Password:</label><br>
     <input type="password" name="password" id="password"></input>
-    <p>Can't login? Get help <a href="http://45.55.248.93/osTicket/osTicket-1.8/">here</a>.</p>
+    <p style="margin-bottom:0px;">Can't login? Get help <a href="http://45.55.248.93/osTicket/osTicket-1.8/">here</a>.</p>
     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    <span id="currentVersionDisplay" style="font-size: 12px; margin-top:-15px">Unable to get version information...</span>
     </form>
     </div>
 </body>

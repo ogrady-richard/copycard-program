@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if( $_SESSION['PERMISSION_LEVEL'] != "4") {
+if( isset( $_SESSION['PERMISSION_LEVEL'] ) && $_SESSION['PERMISSION_LEVEL'] != "4") {
     // Initialize variables
     $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'ccdb', 'ccdb$2015!', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     
@@ -8,8 +8,8 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
     
     if( $clean['cust-bw'] != '' && $clean['cust-color'] != '' ) {
     // Prepare our database query to insert the new customer
-    $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, TelExtension, Email, BlackWhiteCopies, ColorCopies) 
-                               VALUES (?,?,?,?,?,?,?,?)');
+    $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, TelExtension, Email, BlackWhiteCopies, ColorCopies, ActiveUser) 
+                               VALUES (?,?,?,?,?,?,?,?,TRUE)');
     
     $dbconn->execute( array( $clean['cust-f-name'], $clean['cust-l-name'], $clean['cust-business'], 
                       $clean['cust-phone'], $clean['cust-phone-ext'], $clean['cust-email'], $clean['cust-bw'], 
@@ -38,6 +38,7 @@ if( $_SESSION['PERMISSION_LEVEL'] != "4") {
     }
 }
 else {
-    echo "invalid";
+    header( 'Location: ../401.php' );
+    exit();
 }
 ?>

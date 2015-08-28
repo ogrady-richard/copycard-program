@@ -1,5 +1,7 @@
 <?php
-    if( $_SESSION['PERMISSION_LEVEL'] != "4") {
+    session_start();
+    
+    if( isset($_SESSION['PERMISSION_LEVEL']) && $_SESSION['PERMISSION_LEVEL'] != "4") {
         // Initialize variables
         $dbase = new PDO('mysql:host=localhost;dbname=CopyCardProgram;charset=utf8', 'ccdb', 'ccdb$2015!', array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         
@@ -14,7 +16,7 @@
         if( !isset( $userExists[0] )) { 
             $passHash = password_hash( $_POST['pass'], PASSWORD_DEFAULT );
             
-            $dbconn = $dbase->prepare('INSERT INTO Employees(Name, Username, Hash, DefaultStyle, PasswordReset, Active) VALUES( :name, :username, :hash, "default-theme", NOW(), 1)');
+            $dbconn = $dbase->prepare('INSERT INTO Employees(Name, Username, Hash, DefaultStyle, PasswordReset, Active) VALUES( :name, :username, :hash, "default-theme", DATE_SUB(NOW(), INTERVAL 2 YEAR), 1)');
             
             $dbconn->execute( array( ':name' => $_POST['name'], ':username' => $_POST['username'], ':hash' => $passHash ) );
             
@@ -30,5 +32,9 @@
         }
         else
             echo("failure");
+    }
+    else {
+        header( 'Location: ../401.php' );
+        exit();
     }
 ?>

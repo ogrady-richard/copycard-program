@@ -2,6 +2,12 @@ var selectedCustomer = '';
 var currentVersion = '';
 var versionSummary = '';
 
+var sessionTimeout = 1440*1000;
+var alertTimeout = sessionTimeout * .8;
+var today = new Date();
+startTime = Date.now();
+endTime = startTime + sessionTimeout;
+
 function refreshCustomerTable() {
     $.ajax({
         url: './data/getCustomers.php',
@@ -106,11 +112,19 @@ function resetForm( resetForm ) {
 }
 
 $( function() {
+    // Start the session timers to automatically log out users upon session expiration
+    var timeUntilAlert = setTimeout( function( ) { $("<div title='Session expiring!' style='background-color: #d69999;'><p>Your session is about to expire. Please refresh the page to renew your session, or logout if you are no longer using this session.</p></div>").dialog({width: 500})}, alertTimeout );
+    var sessionTimer = setTimeout( function( ) { window.location.href = "logout.php"; }, sessionTimeout );
+    
     // COPYCARD SETTINGS
     var RECEIPT_ID_LENGTH = 20;
     var customerData = "";
     
     getCurrentVersion();
+    
+    if( currentVersion == "" ) {
+        alert("Warning! Version information is invalid. You may be running on an outdated version of CopyCard. Please contact your administrator immediately. Continued use of CopyCard is not recommended until this issue is resolved." );
+    }
     
     // Prevent default settings for the transaction form
     $("#manipulate-copies-fields").on( "submit", function(e) {
@@ -118,15 +132,10 @@ $( function() {
         return false;
     });
     
-    if( currentVersion == "" ) {
-        alert("Warning! Version information is invalid. You may be running on an outdated version of CopyCard. Please contact your administrator immediately. Continued use of CopyCard is not recommended until this issue is resolved." );
-    }
-    
     // Check the users current version cookie and if it has been updated, notify user.
     if ( !(document.cookie.indexOf( "version=" + currentVersion ) >= 0) ) {
-        $("<div title='New Update' style='background-color: #D65C33;'><p>There has been an update since your last login.</p><p>Version changes: " + versionSummary + "</p><p><a href='https://github.com/ogrady-richard/copycard-program/blob/master/VERSION.md' target='_blank'>Official Change List</a></p> </div>").dialog();
+        $("<div title='New Update' style='background-color: #D65C33;'><p>There has been an update since your last login.</p><p>Version changes: " + versionSummary + "</p><p><a href='https://github.com/ogrady-richard/copycard-program/blob/master/VERSION.md' target='_blank'>Official Change List</a></p> </div>").dialog({width: 700});
         document.cookie = "version=" + currentVersion;
-
     }
     
     // Create the customer table DataTable object

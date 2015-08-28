@@ -35,15 +35,15 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
                 if($_SESSION['PERMISSION_LEVEL'] == "2") echo "<button class='user-btn' onclick='location.href=\"adminControls.php\"'>Manager Menu</button>";
                 if($_SESSION['PERMISSION_LEVEL'] == "3") echo "<button class='user-btn' onclick='location.href=\"adminControls.php\"'>User Menu</button>";?>
             <button class="user-btn" onclick="location.href='logout.php'">Logout</button>
-            <button class="user-btn" onclick="location.href='http://45.55.248.93/osTicket/osTicket-1.8/'">Need assistance? Visit the Helpdesk</button>
+            <button class="user-btn" onclick="location.href='http://45.55.248.93/osTicket/osTicket-1.8/'">Helpdesk/Support</button>
 
             <button id="add-new-customer" class="user-btn">Add new Customer</button>
         </div>
     </div>
     <div id="tableContainer" class="content">
         <table id="customer-table" class="display noselect cell-border"><thead><th>ID</th><th>Customer</th><th>Phone</th><th>Email</th><th>Business</th><th>Black and White Copies</th><th>Color Copies</th></thead><tbody></tbody></table>
-        <div id='display-BW'><h3>B/W</h3>---</div>
-        <div id='display-color'><h3>Color</h3>---</div>
+        <div id='display-BW' class="bw-input"><h3>B/W</h3>---</div>
+        <div id='display-color' class="color-input"><h3>Color</h3>---</div>
     </div>
     
     <div id="add-modal" title="Add a New Customer">

@@ -54,6 +54,21 @@ if( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 1
             return userExistsBool;
         }
         
+        function getPermissionDescription( ) {
+            $.ajax({
+                url: './data/getPermissionDescription.php',
+                type: 'POST',
+                data: ({permissionID: $('#permLevel').val()}),
+                success: function( ajaxReturn ){
+                    var ld = JSON.parse( ajaxReturn );
+                    $('#displayPermissionDescription').html( ld );
+                },
+                failure: function(e) {
+                    console.log(e);
+                }
+            });
+        }
+        
         function updateDisplayFields() {
             $("#displayName").html( $("#firstName").val() + ' ' + $("#lastName").val() );
             //Check to see if this username already exists
@@ -66,6 +81,7 @@ if( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 1
             $("#displayUsername").html( currentUsername );
             $("#displayTempPass").html( $("#tempPass").val() );
             $("#displayPermissionLevel").html( $("#permLevel").val() );
+            getPermissionDescription( );
         }
         
         function submitAddUserRequest() {

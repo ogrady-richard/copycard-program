@@ -1,7 +1,22 @@
-1.0.3
-Added version change alerts. Altered "Process Transaction" window to clear when opened. Customer phone extensions implemented fully. Customer PDF page cleaned up.
+1.0.4
+<ul><li>Minor GUI changes</li><li>Employee permission descriptions correctly show when adding new users<li>Colorized copy previews below customer table.</li><li>Removed unnecessary files.</li><li>New employees will be forced to update their passwords when they sign in the first time.</li><li>Added Customer Consolidation to the Admin Menu.</li><li>Working page now has session timeout alerts, and will automatically log them out after session expiration.</li><li>This box is a little longer to accommodate all updates.</li></ul>
 
 # Version History
+
+## 1.0.4
+### August
+- Colourized the copy previews below the customer table.
+- Added (but not implemented) a customer consolidation button to the Admin menu.
+- When adding new employees, the correct employee description will show up before processing.
+- Changed the help desk button to not be so atrociously long, so it will fit better on small screens.
+- New employees will be forced to reset their password on sign-in.
+- Deleted extraneous file "addEmployee.php", which had no function.
+- Added a Customer Consolidation table to mySQLCommands to handle user consolidations.
+- Added an "Active" column to the Customers table on mySQLCommands to handle customer deactivation and consolidation.
+- Added consolidateCustomers.php, to handle customer consolidation (incomplete).
+- Updated mySQLCommands to reflect changes to Customer and Employee tables.
+- Added session timeout alerts and automatic user logoff once a users session has expired.
+- Added the current working version to the login page for at-a-glance version information.
 
 ## 1.0.3
 ### August 17, 2015
@@ -34,6 +49,9 @@ Added version change alerts. Altered "Process Transaction" window to clear when 
 # To-do
 - More styles. Top priority.
 - Verify e-mails for new users before saving user to the database.
+- Refresh users session timer when server requests are made to prevent erroneous user logout.
+- Complete customer consolidation page.
+- Verify users have the correct permissions before performing any server based task. Vulnerabilities everywhere.
 - Check for existing customers when adding customers.
 - Implement Remove User on the Admin Menu
 - Option to generate history reports.

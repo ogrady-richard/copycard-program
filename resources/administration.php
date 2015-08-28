@@ -66,6 +66,7 @@
             echo '
                 <button class="user-btn" onclick="window.location.href=\'addNewUser.php\'">Add a User</button>
                 <button class="user-btn no-function" onclick="">Remove a User</button>
+                <button class="user-btn no-function" onclick="">Consolidate Customers</button>
             </div>';
         }
         

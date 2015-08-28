@@ -1,31 +1,33 @@
 /*Database Hard Reset Code*/
 DROP DATABASE IF EXISTS CopyCardProgram; # Drop the existing Database
 
-CREATE DATABASE CopyCardProgram; # Create t he new Database
+CREATE DATABASE CopyCardProgram; # Create the new Database
 USE CopyCardProgram; # Link into the Database
 
-CREATE TABLE Customers ( CustomerID int PRIMARY KEY AUTO_INCREMENT, FirstName char(35), LastName char(35), Business char(70), Phone char(10), Email char(255), BlackWhiteCopies int, ColorCopies int); # Customer Table - see README.md
+CREATE TABLE Customers(CustomerID int PRIMARY KEY AUTO_INCREMENT, FirstName char(35), LastName char(35), Business char(70), Phone char(10), TelExtension char(8), Email char(255), BlackWhiteCopies int, ColorCopies int, ActiveUser bool); # Customer Table - see README.md
 ALTER TABLE Customers AUTO_INCREMENT=10000;
 
-CREATE TABLE AuthorizedUsers ( CustomerID int NOT NULL, FirstName char(35), LastName char(35), Phone char(10), FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ); # Authorized Users Table - see README.md
+CREATE TABLE AuthorizedUsers(CustomerID int NOT NULL, FirstName char(35), LastName char(35), Phone char(10), FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID)); # Authorized Users Table - see README.md
 
-CREATE TABLE Employees ( EmployeeID int PRIMARY KEY AUTO_INCREMENT, Name char(60), Username char(35), Hash binary(60), DefaultStyle char(25), PasswordReset timestamp, Active bool); # Employees Table - see README.md
-INSERT INTO Employees( EmployeeID, Name, Username, Hash, DefaultStyle, PasswordReset, Active ) VALUES ( -1, 'Administrator', 'admin', '$2y$10$61YNLNtAaRnRDcI16bpcV.X/0/CDQAuhlEbVBmrB/Gtfy77hOp.VK', 'default-theme', NOW(), 1); # Default password 'admin'
+CREATE TABLE Employees(EmployeeID int PRIMARY KEY AUTO_INCREMENT, Name char(60), Username char(35), Hash binary(60), DefaultStyle char(25), PasswordReset timestamp, Active bool); # Employees Table - see README.md
+INSERT INTO Employees(EmployeeID, Name, Username, Hash, DefaultStyle, PasswordReset, Active) VALUES(-1, 'Administrator', 'admin', '$2y$10$61YNLNtAaRnRDcI16bpcV.X/0/CDQAuhlEbVBmrB/Gtfy77hOp.VK', 'default-theme', NOW(), 1); # Default password 'admin'
 
-CREATE TABLE History ( TransactionID int PRIMARY KEY AUTO_INCREMENT, CustomerID int NOT NULL, EmployeeID int NOT NULL, ts timestamp, Action char(255), FOREIGN KEY (CustomerID) REFERENCES Customers( CustomerID ), FOREIGN KEY (EmployeeID) REFERENCES Employees( EmployeeID ) ); # History Table - see README.md
+CREATE TABLE History(TransactionID int PRIMARY KEY AUTO_INCREMENT, CustomerID int NOT NULL, EmployeeID int NOT NULL, ts timestamp, Action char(255), FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID), FOREIGN KEY(EmployeeID) REFERENCES Employees(EmployeeID)); # History Table - see README.md
 
-CREATE TABLE Permissions ( PermissionID int PRIMARY KEY AUTO_INCREMENT, Description char(35) ); # Employee Permissions Table - see README.md
-INSERT INTO Permissions( PermissionID, Description ) VALUES ( 1, 'Administrator' ); # Setup user permissions
-INSERT INTO Permissions( PermissionID, Description ) VALUES ( 2, 'Manager' );
-INSERT INTO Permissions( PermissionID, Description ) VALUES ( 3, 'Associate' );
-INSERT INTO Permissions( PermissionID, Description ) VALUES ( 4, 'Customer' );
+CREATE TABLE CustomerConsolidations(OldCustomerID1 int NOT NULL, OldCustomerID2 int NOT NULL, NewCustomerID int NOT NULL, TransactionID int NOT NULL, FOREIGN KEY(OldCustomerID1) REFERENCES Customers(CustomerID), FOREIGN KEY(OldCustomerID2) REFERENCES Customers(CustomerID), FOREIGN KEY(NewCustomerID) REFERENCES Customers(CustomerID), FOREIGN KEY(TransactionID) REFERENCES History(TransactionID)); #Customer Consolidations - see README.md
 
-CREATE TABLE EmployeePermissions ( EmployeeID int NOT NULL, PermissionID int NOT NULL, FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID), FOREIGN KEY (PermissionID) REFERENCES Permissions(PermissionID) );
-INSERT INTO EmployeePermissions( EmployeeID, PermissionID ) VALUES ( -1, 1 ); # Give temp user administrator rights
+CREATE TABLE Permissions(PermissionID int PRIMARY KEY AUTO_INCREMENT, Description char(35), LongDescription text); # Employee Permissions Table - see README.md
+INSERT INTO Permissions(PermissionID, Description) VALUES(1, 'Administrator', 'Admin Permissions'); # Setup user permissions
+INSERT INTO Permissions(PermissionID, Description) VALUES(2, 'Manager', 'Manager Permissions');
+INSERT INTO Permissions(PermissionID, Description) VALUES(3, 'Associate', 'Associate Permissions');
+INSERT INTO Permissions(PermissionID, Description) VALUES(4, 'Customer', 'Customer Permissions');
 
-CREATE TABLE Sessions ( SessionID char(64), SessionPermissions int NOT NULL, FOREIGN KEY (SessionPermissions) REFERENCES EmployeePermissions(PermissionID));
+CREATE TABLE EmployeePermissions(EmployeeID int NOT NULL, PermissionID int NOT NULL, FOREIGN KEY(EmployeeID) REFERENCES Employees(EmployeeID), FOREIGN KEY(PermissionID) REFERENCES Permissions(PermissionID));
+INSERT INTO EmployeePermissions(EmployeeID, PermissionID) VALUES(-1, 1); # Give temp user administrator rights
 
-CREATE VIEW AllHistory AS SELECT History.TransactionID, Employees.Username AS User, CONCAT(Customers.FirstName, ' ', Customers.LastName, ' (ID #', Customers.CustomerID, ')') AS CustomerName, History.ts AS Date, History.Action FROM Customers INNER JOIN History ON Customers.CustomerID = History.CustomerID INNER JOIN Employees ON History.EmployeeID = Employees.EmployeeID;
+CREATE TABLE Sessions(SessionID char(64), SessionPermissions int NOT NULL, FOREIGN KEY(SessionPermissions) REFERENCES EmployeePermissions(PermissionID));
+
+CREATE VIEW AllHistory AS SELECT History.TransactionID, Employees.Username AS User, CONCAT(Customers.FirstName, ' ', Customers.LastName, '(ID #', Customers.CustomerID, ')') AS CustomerName, History.ts AS Date, History.Action FROM Customers INNER JOIN History ON Customers.CustomerID = History.CustomerID INNER JOIN Employees ON History.EmployeeID = Employees.EmployeeID;
 
 
-# INSERT INTO Customers (FirstName, LastName, Business, Phone, Email, ColorCopies, BlackWhiteCopies) VALUES ( 'John', 'Baldwin', 'Rink Ink Inc.', '7752232345', 'jbaldwin@rinkink.net', 50, 75); # Test Value. Do not use.
+# INSERT INTO Customers(FirstName, LastName, Business, Phone, Email, ColorCopies, BlackWhiteCopies) VALUES('John', 'Baldwin', 'Rink Ink Inc.', '7752232345', 'jbaldwin@rinkink.net', 50, 75); # Test Value. Do not use.
