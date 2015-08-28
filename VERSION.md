@@ -11,7 +11,6 @@
 - Changed the help desk button to not be so atrociously long, so it will fit better on small screens.
 - New employees will be forced to reset their password on sign-in.
 - Deleted extraneous file "addEmployee.php", which had no function.
-- Added a Customer Consolidation table to mySQLCommands to handle user consolidations.
 - Added an "Active" column to the Customers table on mySQLCommands to handle customer deactivation and consolidation.
 - Added consolidateCustomers.php, to handle customer consolidation (incomplete).
 - Updated mySQLCommands to reflect changes to Customer and Employee tables.
