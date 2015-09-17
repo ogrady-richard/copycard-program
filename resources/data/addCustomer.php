@@ -1,4 +1,15 @@
-<?php 
+<?php
+function ucname($string) {
+    $string =ucwords(strtolower($string));
+
+    foreach (array('-', '\'') as $delimiter) {
+        if (strpos($string, $delimiter)!==false) {
+            $string =implode($delimiter, array_map('ucfirst', explode($delimiter, $string)));
+        }
+    }
+    return $string;
+}
+
 session_start();
 if( isset( $_SESSION['PERMISSION_LEVEL'] ) && $_SESSION['PERMISSION_LEVEL'] != "4") {
     // Initialize variables
@@ -11,9 +22,7 @@ if( isset( $_SESSION['PERMISSION_LEVEL'] ) && $_SESSION['PERMISSION_LEVEL'] != "
     $dbconn = $dbase->prepare('INSERT INTO Customers(FirstName, LastName, Business, Phone, TelExtension, Email, BlackWhiteCopies, ColorCopies, ActiveUser) 
                                VALUES (?,?,?,?,?,?,?,?,TRUE)');
     
-    $dbconn->execute( array( $clean['cust-f-name'], $clean['cust-l-name'], $clean['cust-business'], 
-                      $clean['cust-phone'], $clean['cust-phone-ext'], $clean['cust-email'], $clean['cust-bw'], 
-                      $clean['cust-color'] ) );
+    $dbconn->execute( array( ucname($clean['cust-f-name']), ucname($clean['cust-l-name']), $clean['cust-business'], $clean['cust-phone'], $clean['cust-phone-ext'], strtolower($clean['cust-email']), $clean['cust-bw'], $clean['cust-color'] ) );
     
     $dbconn = $dbase->prepare('SELECT LAST_INSERT_ID()');
     

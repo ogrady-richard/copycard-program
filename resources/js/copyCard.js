@@ -2,7 +2,7 @@ var selectedCustomer = '';
 var currentVersion = '';
 var versionSummary = '';
 
-var sessionTimeout = 1440*1000;
+var sessionTimeout = 600*1000;
 var alertTimeout = sessionTimeout * .8;
 var today = new Date();
 startTime = Date.now();
@@ -206,7 +206,77 @@ $( function() {
         autoOpen: false,
         width: 700,
         modal: true,
-        open: function() { resetForm( '#manipulate-copies-fields' ); }
+        open: function() { 
+            resetForm( '#manipulate-copies-fields' );
+            $("#confirm-add").show()
+            $("#confirm-add-color").hide();
+            $("#confirm-add-black-white").hide();
+            $("#adding-bw-copies").hide();
+            $("#adding-color-copies").hide();
+            $("#confirm-use").show()
+            $("#confirm-use-color").hide();
+            $("#confirm-use-black-white").hide();
+            $("#using-bw-copies").hide();
+            $("#using-color-copies").hide();
+        }
+    });
+    
+    $("#adding-copies-button").on('click', function() {
+        $("#confirm-add").hide();
+        $("#confirm-add-color").show();
+        $("#confirm-add-black-white").show();
+        $("#add-copies-details").show();
+    });
+    
+    $("#not-adding-copies-button").on('click', function() {
+        $("#confirm-add").hide();
+    });
+    
+    $("#adding-bw-copies-button").on('click', function() {
+        $("#confirm-add-black-white").hide();
+        $("#adding-bw-copies").show();
+    });
+    
+    $("#adding-color-copies-button").on('click', function() {
+        $("#confirm-add-color").hide();
+        $("#adding-color-copies").show();
+    });
+    
+    $("#not-adding-bw-copies-button").on('click', function() {
+        $("#confirm-add-black-white").hide();
+    });
+    
+    $("#not-adding-color-copies-button").on('click', function() {
+        $("#confirm-add-color").hide();
+    });
+    
+    $("#using-copies-button").on('click', function() {
+        $("#confirm-use").hide();
+        $("#confirm-use-color").show();
+        $("#confirm-use-black-white").show();
+        $("#use-copies-details").show();
+    });
+    
+    $("#not-using-copies-button").on('click', function() {
+        $("#confirm-use").hide();
+    });
+    
+    $("#using-bw-copies-button").on('click', function() {
+        $("#confirm-use-black-white").hide();
+        $("#using-bw-copies").show();
+    });
+    
+    $("#using-color-copies-button").on('click', function() {
+        $("#confirm-use-color").hide();
+        $("#using-color-copies").show();
+    });
+    
+    $("#not-using-bw-copies-button").on('click', function() {
+        $("#confirm-use-black-white").hide();
+    });
+    
+    $("#not-using-color-copies-button").on('click', function() {
+        $("#confirm-use-color").hide();
     });
     
     $("#process-transaction-tab").on( 'click', function() {

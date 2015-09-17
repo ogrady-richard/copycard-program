@@ -98,27 +98,59 @@ if ( !isset( $_SESSION['PERMISSION_LEVEL'] ) || $_SESSION['PERMISSION_LEVEL'] > 
             </ul>
             <form id="manipulate-copies-fields">
             <div id="add-copies">
+                <div id="confirm-add">
+                    <h1>Is the customer<br>ADDING<br>any copies?</h1>
+                    <button class="user-btn" id="adding-copies-button">Yes</button>
+                    <button class="user-btn" id="not-adding-copies-button">No</button>
+                </div>
+                <div id="confirm-add-black-white" class="copies-left">
+                    <h2>Is the customer adding any<br>BLACK AND WHITE<br>copies?</h2>
+                    <button class="user-btn" id="adding-bw-copies-button">Yes</button>
+                    <button class="user-btn" id="not-adding-bw-copies-button">No</button>
+                </div>
+                <div id="confirm-add-color" class="copies-right">
+                    <h2><br>Is the customer adding any<br><span style="color:#fb6630;">COLOR</span><br>copies?</h2>
+                    <button class="user-btn" id="adding-color-copies-button">Yes</button>
+                    <button class="user-btn" id="not-adding-color-copies-button">No</button>
+                </div>
+                <br>
                 <h2>Enter the Quantity of Copies to Add</h2><br>
-                <div class="copies-left">
-                    <h3>B/W Copies</h3>
-                    <p><input id="bw-copies-added" class="bw-input" type="number" placeholder="Quantity..."></p>
-                </div>
-                <div class="copies-right">
-                    <h3>Color Copies</h3>
-                    <p><input id="color-copies-added" class="color-input" type="number" placeholder="Quantity..."></p>
-                </div>
-                <h3>Receipt ID</h3>
-                <p><input id="receipt-ID" class="wide-input" type="text" placeholder="Scan payment receipt here..."></p>
+                    <div class="copies-left" id="adding-bw-copies">
+                        <h3>B/W Copies</h3>
+                        <p><input id="bw-copies-added" class="bw-input" type="number" placeholder="Quantity..."></p>
+                    </div>
+                    <div class="copies-right" id="adding-color-copies">
+                        <h3><span style="color:#fb6630;">C</span><span style="color:#fc6a47;">o</span><span style="color:#fd6d5f;">l</span><span style="color:#fe7176;">o</span><span style="color:#ff748d;">r</span><span style="color:#ec69af;"> </span><span style="color:#d85fd1;">C</span><span style="color:#c554f3;">o</span><span style="color:#b05bf3;">p</span><span style="color:#9a62f4;">i</span><span style="color:#8568f4;">e</span><span style="color:#6f6ff4;">s</span></h3>
+                        <p><input id="color-copies-added" class="color-input" type="number" placeholder="Quantity..."></p>
+                    </div>
+                    <h3>Receipt ID</h3>
+                    <p><input id="receipt-ID" class="wide-input" type="text" placeholder="Scan payment receipt here..."></p>
+                
             </div>
             <div id="use-copies">
+                <div id="confirm-use">
+                    <h1>Is the customer<br>USING<br>any copies?</h1>
+                    <button class="user-btn" id="using-copies-button">Yes</button>
+                    <button class="user-btn" id="not-using-copies-button">No</button>
+                </div>
+                <div id="confirm-use-black-white" class="copies-left">
+                    <h2>Is the customer using any<br>BLACK AND WHITE<br>copies?</h2>
+                    <button class="user-btn" id="using-bw-copies-button">Yes</button>
+                    <button class="user-btn" id="not-using-bw-copies-button">No</button>
+                </div>
+                <div id="confirm-use-color" class="copies-right">
+                    <h2><br>Is the customer using any<br><span style="color:#fb6630;">COLOR</span><br>copies?</h2>
+                    <button class="user-btn" id="using-color-copies-button">Yes</button>
+                    <button class="user-btn" id="not-using-color-copies-button">No</button>
+                </div>
+                <br>
                 <h2>Enter the Quantity of Copies to Use</h2><br>
-                <div class="copies-left">
+                <div id="using-bw-copies" class="copies-left">
                     <h3>B/W Copies</h3>
                     <p><input id="bw-copies-used" class="bw-input" type="number" placeholder="Quantity..."></p>
-
                 </div>
-                <div class="copies-right">
-                    <h3>Color Copies</h3>
+                <div id="using-color-copies" class="copies-right">
+                    <h3><span style="color:#fb6630;">C</span><span style="color:#fc6a47;">o</span><span style="color:#fd6d5f;">l</span><span style="color:#fe7176;">o</span><span style="color:#ff748d;">r</span><span style="color:#ec69af;"> </span><span style="color:#d85fd1;">C</span><span style="color:#c554f3;">o</span><span style="color:#b05bf3;">p</span><span style="color:#9a62f4;">i</span><span style="color:#8568f4;">e</span><span style="color:#6f6ff4;">s</span></h3>
                     <p><input id="color-copies-used" class="color-input" type="number" placeholder="Quantity..."></p>
                 </div>
                 <h3>Job Description</h3>

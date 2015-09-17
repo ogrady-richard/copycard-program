@@ -1,10 +1,13 @@
-1.0.4
-<ul><li>Minor GUI changes</li><li>Employee permission descriptions correctly show when adding new users<li>Colorized copy previews below customer table.</li><li>Removed unnecessary files.</li><li>New employees will be forced to update their passwords when they sign in the first time.</li><li>Added Customer Consolidation to the Admin Menu.</li><li>Working page now has session timeout alerts, and will automatically log them out after session expiration.</li><li>This box is a little longer to accommodate all updates.</li></ul>
+1.0.5
+<ul><li>Added additional processing dialogs to help prevent human error while processing</li></ul>
 
 # Version History
+##1.0.5
+### September 17th, 2015
+- Added additional confirmation dialogs while user is processing a transaction to ensure there is less chance for error during transaction processing.
 
 ## 1.0.4
-### August
+### August 29th, 2015
 - Colourized the copy previews below the customer table.
 - Added (but not implemented) a customer consolidation button to the Admin menu.
 - When adding new employees, the correct employee description will show up before processing.
@@ -47,6 +50,7 @@
 
 # To-do
 - More styles. Top priority.
+- Massive clean up required. Way too many poorly written spots. Consolidate the mess.
 - Verify e-mails for new users before saving user to the database.
 - Refresh users session timer when server requests are made to prevent erroneous user logout.
 - Complete customer consolidation page.
